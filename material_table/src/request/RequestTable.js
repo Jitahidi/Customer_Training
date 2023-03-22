@@ -3,6 +3,7 @@ import MaterialReactTable from "material-react-table";
 //import MOCK_DATA from './MOCK_DATA.json';
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
+import { Tab, Tabs } from "@mui/material";
 import {
   Box,
   Button,
@@ -140,6 +141,8 @@ export const RequestTable = () => {
   // State variable to keep track of the row being edited and the updated values of the request.
   const [editRow, setEditRow] = useState(null);
   const [updatedRequest, setUpdatedRequest] = useState({});
+  // State variable to keep track of the active tab
+  const [activeTab, setActiveTab] = useState(0);
 
   // Retrieve data from the backend API to display data in the request table
   useEffect(() => {
@@ -282,115 +285,149 @@ export const RequestTable = () => {
       console.error(error);
     }
   };
+  // Function handles tab changes
+  const handleTabChange = (event, newValue) => {
+    setActiveTab(newValue);
+  };
+
+  const employeeTable = () => {
+    return <div>Another table goes here</div>;
+  };
+
+  const courseVendorTable = () => {
+    return <div>Another table goes here</div>;
+  };
 
   return (
     <>
-      <h1 align="center">Request Table</h1>
-      <MaterialReactTable columns={COLUMNS} data={data} />
-      {/* Dialog box for creating new row */}
-      <Dialog
-        open={createModalOpen}
-        onClose={() => setCreateModalOpen(false)}
-        fullWidth
-        maxWidth="xs"
-      >
-        <DialogTitle>Create New Request</DialogTitle>
-        <DialogContent>
-          <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
-            <TextField
-              autoFocus
-              margin="dense"
-              name="requestId"
-              label="Request ID"
-              type="text"
-              value={newRequest.requestId}
-              onChange={handleNewRequestChange}
-            />
-            <TextField
-              margin="dense"
-              name="vendor_Name"
-              label="Vendor Name"
-              type="text"
-              value={newRequest.vendor_Name}
-              onChange={handleNewRequestChange}
-            />
-            <TextField
-              margin="dense"
-              name="vendor_Mailing_Address"
-              label="Vendor Mailing Address"
-              type="text"
-              value={newRequest.vendor_Mailing_Address}
-              onChange={handleNewRequestChange}
-            />
-            {/* Add more text fields for other columns */}
-          </Box>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={() => setCreateModalOpen(false)}>Cancel</Button>
-          <Button onClick={handleCreateRequest}>Create</Button>
-        </DialogActions>
-      </Dialog>
-      {/* Dialog box for editing row */}
-      <Dialog
-        open={editRow !== null}
-        onClose={() => setEditRow(null)}
-        fullWidth
-        maxWidth="xs"
-      >
-        <DialogTitle>Edit Request</DialogTitle>
-        <DialogContent>
-          <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
-            <TextField
-              margin="dense"
-              label="Vendor Name"
-              type="text"
-              value={updatedRequest.vendor_Name}
-              onChange={(e) =>
-                setUpdatedRequest({
-                  ...updatedRequest,
-                  vendor_Name: e.target.value,
-                })
-              }
-            />
-            <TextField
-              margin="dense"
-              label="Vendor Mailing Address"
-              type="text"
-              value={updatedRequest.vendor_Mailing_Address}
-              onChange={(e) =>
-                setUpdatedRequest({
-                  ...updatedRequest,
-                  vendor_Mailing_Address: e.target.value,
-                })
-              }
-            />
-            {/* Add more text fields for other columns */}
-          </Box>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={() => setEditRow(null)}>Cancel</Button>
-          <Button onClick={handleUpdateRequest}>Save</Button>
-        </DialogActions>
-      </Dialog>
-      {/* Delete Confirmation */}
-      <Dialog
-        open={deleteDialogOpen}
-        onClose={() => setDeleteDialogOpen(false)}
-      >
-        <DialogTitle>Confirm Delete</DialogTitle>
-        <DialogContent>
-          <Typography>Are you sure you want to delete this request?</Typography>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={() => setDeleteDialogOpen(false)}>Cancel</Button>
-          <Button onClick={handleConfirmDelete}>Delete</Button>
-        </DialogActions>
-      </Dialog>
-      <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
-        <Button onClick={() => setCreateModalOpen(true)}>
-          Add New Request
-        </Button>
+      <Box sx={{ width: "100%" }}>
+        <Tabs value={activeTab} onChange={handleTabChange}>
+          <Tab label="Request Table" />
+          <Tab label="Employee Table" />
+          <Tab label="Course/Vendor Table" />
+        </Tabs>
       </Box>
+      {activeTab === 0 && (
+        <>
+          <MaterialReactTable columns={COLUMNS} data={data} />
+          {/* Dialog box for creating new row */}
+          <Dialog
+            open={createModalOpen}
+            onClose={() => setCreateModalOpen(false)}
+            fullWidth
+            maxWidth="xs"
+          >
+            <DialogTitle>Create New Request</DialogTitle>
+            <DialogContent>
+              <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+                <TextField
+                  autoFocus
+                  margin="dense"
+                  name="requestId"
+                  label="Request ID"
+                  type="text"
+                  value={newRequest.requestId}
+                  onChange={handleNewRequestChange}
+                />
+                <TextField
+                  margin="dense"
+                  name="vendor_Name"
+                  label="Vendor Name"
+                  type="text"
+                  value={newRequest.vendor_Name}
+                  onChange={handleNewRequestChange}
+                />
+                <TextField
+                  margin="dense"
+                  name="vendor_Mailing_Address"
+                  label="Vendor Mailing Address"
+                  type="text"
+                  value={newRequest.vendor_Mailing_Address}
+                  onChange={handleNewRequestChange}
+                />
+                {/* Add more text fields for other columns */}
+              </Box>
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={() => setCreateModalOpen(false)}>Cancel</Button>
+              <Button onClick={handleCreateRequest}>Create</Button>
+            </DialogActions>
+          </Dialog>
+          {/* Dialog box for editing row */}
+          <Dialog
+            open={editRow !== null}
+            onClose={() => setEditRow(null)}
+            fullWidth
+            maxWidth="xs"
+          >
+            <DialogTitle>Edit Request</DialogTitle>
+            <DialogContent>
+              <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+                <TextField
+                  margin="dense"
+                  label="Vendor Name"
+                  type="text"
+                  value={updatedRequest.vendor_Name}
+                  onChange={(e) =>
+                    setUpdatedRequest({
+                      ...updatedRequest,
+                      vendor_Name: e.target.value,
+                    })
+                  }
+                />
+                <TextField
+                  margin="dense"
+                  label="Vendor Mailing Address"
+                  type="text"
+                  value={updatedRequest.vendor_Mailing_Address}
+                  onChange={(e) =>
+                    setUpdatedRequest({
+                      ...updatedRequest,
+                      vendor_Mailing_Address: e.target.value,
+                    })
+                  }
+                />
+                {/* Add more text fields for other columns */}
+              </Box>
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={() => setEditRow(null)}>Cancel</Button>
+              <Button onClick={handleUpdateRequest}>Save</Button>
+            </DialogActions>
+          </Dialog>
+          {/* Delete Confirmation */}
+          <Dialog
+            open={deleteDialogOpen}
+            onClose={() => setDeleteDialogOpen(false)}
+          >
+            <DialogTitle>Confirm Delete</DialogTitle>
+            <DialogContent>
+              <Typography>
+                Are you sure you want to delete this request?
+              </Typography>
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={() => setDeleteDialogOpen(false)}>Cancel</Button>
+              <Button onClick={handleConfirmDelete}>Delete</Button>
+            </DialogActions>
+          </Dialog>
+          <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
+            <Button onClick={() => setCreateModalOpen(true)}>
+              Add New Request
+            </Button>
+          </Box>
+        </>
+      )}
+      {activeTab === 1 && (
+        <>
+          // Your AnotherTable component, for example: <employeeTable />
+        </>
+      )}
+      {activeTab === 2 && (
+        <>
+          // Your AnotherTable component, for example: <courseVendorTable />
+        </>
+      )}
     </>
   );
 };
