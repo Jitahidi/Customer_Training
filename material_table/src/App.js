@@ -1,9 +1,11 @@
-import './App.css';
-import { RequestTable } from './request/RequestTable';
+import "./App.css";
+import { RequestForm } from "./request/RequestForm";
+import { RequestTable } from "./request/RequestTable";
 
 function App() {
   return (
     <div className="App">
+      <RequestForm />
       <RequestTable />
     </div>
   );
