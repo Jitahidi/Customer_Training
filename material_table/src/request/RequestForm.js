@@ -92,7 +92,7 @@ const initialValues = {
     vendor_Email_Address: null,
     vendor_Website: null,
     vendor_POC: null,
-    vourseName: null,
+    courseName: null,
     courseId: null,
     training_StartDate: null,
     training_EndDate: null,
