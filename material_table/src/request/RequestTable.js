@@ -4,6 +4,7 @@ import MaterialReactTable from "material-react-table";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import { Tab, Tabs } from "@mui/material";
+import { EmployeeTable } from "./EmployeeTable";
 import {
   Box,
   Button,
@@ -420,12 +421,12 @@ export const RequestTable = () => {
       )}
       {activeTab === 1 && (
         <>
-          // Your AnotherTable component, for example: <employeeTable />
+          <EmployeeTable />
         </>
       )}
       {activeTab === 2 && (
         <>
-          // Your AnotherTable component, for example: <courseVendorTable />
+          <courseVendorTable />
         </>
       )}
     </>
