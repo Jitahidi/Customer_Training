@@ -5,6 +5,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import { Tab, Tabs } from "@mui/material";
 import { EmployeeTable } from "./EmployeeTable";
+import { CourseTable } from "./CourseTable";
 import {
   Box,
   Button,
@@ -305,7 +306,7 @@ export const RequestTable = () => {
         <Tabs value={activeTab} onChange={handleTabChange}>
           <Tab label="Request Table" />
           <Tab label="Employee Table" />
-          <Tab label="Course/Vendor Table" />
+          <Tab label="Course Table" />
         </Tabs>
       </Box>
       {activeTab === 0 && (
@@ -426,7 +427,7 @@ export const RequestTable = () => {
       )}
       {activeTab === 2 && (
         <>
-          <courseVendorTable />
+          <CourseTable />
         </>
       )}
     </>
