@@ -6,6 +6,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import { Tab, Tabs } from "@mui/material";
 import { EmployeeTable } from "./EmployeeTable";
 import { CourseTable } from "./CourseTable";
+import { VendorTable } from "./VendorTable";
 import {
   Box,
   Button,
@@ -307,6 +308,7 @@ export const RequestTable = () => {
           <Tab label="Request Table" />
           <Tab label="Employee Table" />
           <Tab label="Course Table" />
+          <Tab label="Vendor Table" />
         </Tabs>
       </Box>
       {activeTab === 0 && (
@@ -428,6 +430,11 @@ export const RequestTable = () => {
       {activeTab === 2 && (
         <>
           <CourseTable />
+        </>
+      )}
+      {activeTab === 3 && (
+        <>
+          <VendorTable />
         </>
       )}
     </>
