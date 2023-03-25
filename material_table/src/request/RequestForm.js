@@ -85,7 +85,7 @@ const useStyles = makeStyles((theme) => ({
 
 const initialValues = {
   step1: {
-    employeeId: null,
+    employeeId: "test",
     agency_Code: null,
     first_Name: null,
     last_Name: null,
@@ -104,6 +104,17 @@ const initialValues = {
     series: null,
     grade: null,
     step: null,
+  },
+  step2: {
+    courseId: null,
+    courseName: null,
+    vendorId: null,
+    vendor_Name: null,
+    vendor_Mailing_Address: null,
+    vendor_Telephone_Number: null,
+    vendor_Email_Address: null,
+    vendor_Website: null,
+    vendor_POC: null,
   },
   step3: {
     requestId: null,
@@ -313,18 +324,83 @@ export const RequestForm = () => {
     },
     {
       label: "Step 2",
-      // content: (
-      //   <>
-      //     {/* Step 2 text fields go here */}
-      //     <TextField
-      //       name="step2.field2"
-      //       label="Field 2"
-      //       onChange={formik.handleChange}
-      //       value={formik.values.step2.field2}
-      //     />
-      //     {/* Add other text fields for Step 2 */}
-      //   </>
-      // ),
+      content: (
+        <>
+          {/* Step 2 text fields go here */}
+          <TextField
+            {...formik.getFieldProps("step2.courseId")}
+            label="Course ID"
+            onChange={formik.handleChange}
+            value={formik.values.step2.courseId}
+            variant="outlined"
+            className={classes.textfield}
+          />
+          <TextField
+            {...formik.getFieldProps("step2.courseName")}
+            label="Course Name"
+            onChange={formik.handleChange}
+            value={formik.values.step2.courseName}
+            variant="outlined"
+            className={classes.textfield}
+          />
+          <TextField
+            {...formik.getFieldProps("step2.vendorId")}
+            label="Vendor ID"
+            onChange={formik.handleChange}
+            value={formik.values.step2.vendorId}
+            variant="outlined"
+            className={classes.textfield}
+          />
+          <TextField
+            {...formik.getFieldProps("step2.vendor_Name")}
+            label="Vendor Name"
+            onChange={formik.handleChange}
+            value={formik.values.step2.vendor_Name}
+            variant="outlined"
+            className={classes.textfield}
+          />
+          <TextField
+            {...formik.getFieldProps("step2.vendor_Mailing_Address")}
+            label="Vendor Mailing Address"
+            onChange={formik.handleChange}
+            value={formik.values.step2.vendor_Mailing_Address}
+            variant="outlined"
+            className={classes.textfield}
+          />
+          <TextField
+            {...formik.getFieldProps("step2.vendor_Telephone_Number")}
+            label="Vendor Telephone Number"
+            onChange={formik.handleChange}
+            value={formik.values.step2.vendor_Telephone_Number}
+            variant="outlined"
+            className={classes.textfield}
+          />
+          <TextField
+            {...formik.getFieldProps("step2.vendor_Email_Address")}
+            label="Vendor Email Address"
+            onChange={formik.handleChange}
+            value={formik.values.step2.vendor_Email_Address}
+            variant="outlined"
+            className={classes.textfield}
+          />
+          <TextField
+            {...formik.getFieldProps("step2.vendor_Website")}
+            label="Vendor Website"
+            onChange={formik.handleChange}
+            value={formik.values.step2.vendor_Website}
+            variant="outlined"
+            className={classes.textfield}
+          />
+          <TextField
+            {...formik.getFieldProps("step2.vendor_POC")}
+            label="Vendor POC"
+            onChange={formik.handleChange}
+            value={formik.values.step2.vendor_POC}
+            variant="outlined"
+            className={classes.textfield}
+          />
+        </>
+      ),
     },
     {
       label: "Step 3",
@@ -591,8 +667,8 @@ export const RequestForm = () => {
   };
 
   useEffect(() => {
-    console.log(formik.errors);
-  }, [formik.errors]);
+    console.log(formik.values);
+  }, [formik.values]);
 
   // Function handles create request on the frontend and backend
   const handleCreateRequest = async () => {
@@ -610,7 +686,21 @@ export const RequestForm = () => {
           },
           body: JSON.stringify(formik.values.step1),
         });
-        const response2 = await fetch("http://localhost:5201/api/Requests/", {
+        const response2 = await fetch("http://localhost:5201/api/Courses/", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formik.values.step2),
+        });
+        const response3 = await fetch("http://localhost:5201/api/Vendors/", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formik.values.step2),
+        });
+        const response4 = await fetch("http://localhost:5201/api/Requests/", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -618,7 +708,7 @@ export const RequestForm = () => {
           body: JSON.stringify(formik.values.step3),
         });
 
-        if (!response1.ok && !response2.ok) {
+        if (!response1.ok && !response2.ok && !response3.ok && !response4.ok) {
           throw new Error("Failed to create request");
         }
       } catch (error) {
