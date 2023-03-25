@@ -84,6 +84,27 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const initialValues = {
+  step1: {
+    employeeId: null,
+    agency_Code: null,
+    first_Name: null,
+    last_Name: null,
+    middle_Initial: null,
+    home_Address: null,
+    home_Telephone: null,
+    position_Level: null,
+    organization_Mailing_Address: null,
+    office_Telephone: null,
+    work_Email_Address: null,
+    position_Title: null,
+    isSpecialAccomodationNeeded: null,
+    specialAccomodation_Details: null,
+    education_Level: null,
+    pay_Plan: null,
+    series: null,
+    grade: null,
+    step: null,
+  },
   step3: {
     requestId: null,
     vendor_Name: null,
@@ -105,7 +126,7 @@ const initialValues = {
     training_DesignationTypeCode: null,
     training_Credit: null,
     training_CreditTypeCode: null,
-    training_AccreditionIdicator: null,
+    training_AccreditionIndicator: null,
     continued_Service_Agreement_ExpirationDate: null,
     training_Source_TypeCode: null,
     individual_or_Group_Training: null,
@@ -132,18 +153,163 @@ export const RequestForm = () => {
   const steps = [
     {
       label: "Step 1",
-      // content: (
-      //   <>
-      //     {/* Step 1 text fields go here */}
-      //     <TextField
-      //       name="step1.field1"
-      //       label="Field 1"
-      //       onChange={formik.handleChange}
-      //       value={formik.values.step1.field1}
-      //     />
-      //     {/* Add other text fields for Step 1 */}
-      //   </>
-      // ),
+      content: (
+        <>
+          {/* Step 1 text fields go here */}
+          <TextField
+            {...formik.getFieldProps("step1.employeeId")}
+            label="Employee ID"
+            onChange={formik.handleChange}
+            value={formik.values.step1.employeeId}
+            variant="outlined"
+            className={classes.textfield}
+          />
+          <TextField
+            {...formik.getFieldProps("step1.agency_Code")}
+            label="Agency Code"
+            onChange={formik.handleChange}
+            value={formik.values.step1.agency_Code}
+            variant="outlined"
+            className={classes.textfield}
+          />
+          <TextField
+            {...formik.getFieldProps("step1.first_Name")}
+            label="First Name"
+            onChange={formik.handleChange}
+            value={formik.values.step1.first_Name}
+            variant="outlined"
+            className={classes.textfield}
+          />
+          <TextField
+            {...formik.getFieldProps("step1.last_Name")}
+            label="Last Name"
+            onChange={formik.handleChange}
+            value={formik.values.step1.last_Name}
+            variant="outlined"
+            className={classes.textfield}
+          />
+          <TextField
+            {...formik.getFieldProps("step1.middle_Initial")}
+            label="Middle Initial"
+            onChange={formik.handleChange}
+            value={formik.values.step1.middle_Initial}
+            variant="outlined"
+            className={classes.textfield}
+          />
+          <TextField
+            {...formik.getFieldProps("step1.home_Address")}
+            label="Home Address"
+            onChange={formik.handleChange}
+            value={formik.values.step1.home_Address}
+            variant="outlined"
+            className={classes.textfield}
+          />
+          <TextField
+            {...formik.getFieldProps("step1.home_Telephone")}
+            label="Home Telephone"
+            onChange={formik.handleChange}
+            value={formik.values.step1.home_Telephone}
+            variant="outlined"
+            className={classes.textfield}
+          />
+          <TextField
+            {...formik.getFieldProps("step1.position_Level")}
+            label="Position Level"
+            onChange={formik.handleChange}
+            value={formik.values.step1.position_Level}
+            variant="outlined"
+            className={classes.textfield}
+          />
+          <TextField
+            {...formik.getFieldProps("step1.organization_Mailing_Address")}
+            label="Organization Mailing Address"
+            onChange={formik.handleChange}
+            value={formik.values.step1.organization_Mailing_Address}
+            variant="outlined"
+            className={classes.textfield}
+          />
+          <TextField
+            {...formik.getFieldProps("step1.office_Telephone")}
+            label="Office Telephone"
+            onChange={formik.handleChange}
+            value={formik.values.step1.office_Telephone}
+            variant="outlined"
+            className={classes.textfield}
+          />
+          <TextField
+            {...formik.getFieldProps("step1.work_Email_Address")}
+            label="Work Email Address"
+            onChange={formik.handleChange}
+            value={formik.values.step1.work_Email_Address}
+            variant="outlined"
+            className={classes.textfield}
+          />
+          <TextField
+            {...formik.getFieldProps("step1.position_Title")}
+            label="Position Title"
+            onChange={formik.handleChange}
+            value={formik.values.step1.position_Title}
+            variant="outlined"
+            className={classes.textfield}
+          />
+          <TextField
+            {...formik.getFieldProps("step1.isSpecialAccomodationNeeded")}
+            label="Is Special Accomodation Needed"
+            onChange={formik.handleChange}
+            value={formik.values.step1.isSpecialAccomodationNeeded}
+            variant="outlined"
+            className={classes.textfield}
+          />
+          <TextField
+            {...formik.getFieldProps("step1.specialAccomodation_Details")}
+            label="Special Accomodation Details"
+            onChange={formik.handleChange}
+            value={formik.values.step1.specialAccomodation_Details}
+            variant="outlined"
+            className={classes.textfield}
+          />
+          <TextField
+            {...formik.getFieldProps("step1.education_Level")}
+            label="Education Level"
+            onChange={formik.handleChange}
+            value={formik.values.step1.education_Level}
+            variant="outlined"
+            className={classes.textfield}
+          />
+          <TextField
+            {...formik.getFieldProps("step1.pay_Plan")}
+            label="Pay Plan"
+            onChange={formik.handleChange}
+            value={formik.values.step1.pay_Plan}
+            variant="outlined"
+            className={classes.textfield}
+          />
+          <TextField
+            {...formik.getFieldProps("step1.series")}
+            label="Series"
+            onChange={formik.handleChange}
+            value={formik.values.step1.series}
+            variant="outlined"
+            className={classes.textfield}
+          />
+          <TextField
+            {...formik.getFieldProps("step1.grade")}
+            label="Grade"
+            onChange={formik.handleChange}
+            value={formik.values.step1.grade}
+            variant="outlined"
+            className={classes.textfield}
+          />
+          <TextField
+            {...formik.getFieldProps("step1.step")}
+            label="Step"
+            onChange={formik.handleChange}
+            value={formik.values.step1.step}
+            variant="outlined"
+            className={classes.textfield}
+          />
+        </>
+      ),
     },
     {
       label: "Step 2",
@@ -393,7 +559,7 @@ export const RequestForm = () => {
   const stepFields = {
     step1: [],
     step2: [],
-    step3: ["requestId", "vendor_Name", "vendor_Mailing_Address"],
+    step3: ["requestId"],
   };
   // The handleNext function ensures that the form only proceeds to the next step
   // if all fields in the current step pass validation. It also handles steps that
@@ -437,7 +603,14 @@ export const RequestForm = () => {
     if (Object.keys(formik.errors).length === 0) {
       try {
         // Send a POST request to the backend API to create a new row in the database
-        const response = await fetch("http://localhost:5201/api/Requests/", {
+        const response1 = await fetch("http://localhost:5201/api/Employees/", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formik.values.step1),
+        });
+        const response2 = await fetch("http://localhost:5201/api/Requests/", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -445,7 +618,7 @@ export const RequestForm = () => {
           body: JSON.stringify(formik.values.step3),
         });
 
-        if (!response.ok) {
+        if (!response1.ok && !response2.ok) {
           throw new Error("Failed to create request");
         }
       } catch (error) {
