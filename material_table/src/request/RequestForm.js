@@ -4,6 +4,11 @@ import * as Yup from "yup";
 import { makeStyles } from "@material-ui/core/styles";
 import { Stepper, Step, StepLabel, Button } from "@material-ui/core";
 import { TextField } from "@material-ui/core";
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
+import DialogTitle from "@material-ui/core/DialogTitle";
 import "typeface-inter";
 
 const useStyles = makeStyles((theme) => ({
@@ -156,10 +161,33 @@ const validationSchema = Yup.object().shape({
 export const RequestForm = () => {
   const classes = useStyles();
   const [activeStep, setActiveStep] = useState(0);
+  // Open dialog box when user clicks submit
+  const [dialogOpen, setDialogOpen] = useState(false);
+
+  const handleDialogClose = () => {
+    setDialogOpen(false);
+    window.scrollTo(0, 0);
+    window.location.reload();
+  };
+
   const formik = useFormik({
     initialValues,
     validationSchema,
-    onSubmit: () => {},
+    onSubmit: (values, { resetForm }) => {
+      // If the user is on the last step, submit the form
+      if (activeStep === steps.length - 1) {
+        handleCreateRequest(values);
+        setDialogOpen(true);
+        resetForm();
+        setActiveStep(0);
+      } else {
+        // This ensures that when the form is submitted at step 3,
+        // the API call is made, the dialog is displayed, the form is reset,
+        // and the user is taken back to step 1. If the form is submitted at
+        // any step other than step 3, the user is simply taken to the next step.
+        setActiveStep(activeStep + 1);
+      }
+    },
   });
 
   const steps = [
@@ -390,7 +418,7 @@ export const RequestForm = () => {
             variant="outlined"
             className={classes.textfield}
             error={
-              Boolean(formik.touched.step3?.requestId) &&
+              formik.touched.step3?.requestId &&
               Boolean(formik.errors.step3?.requestId)
             }
             helperText={
@@ -646,14 +674,14 @@ export const RequestForm = () => {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify(formik.values.step2),
+          body: JSON.stringify(formik.values.step3),
         });
         const response3 = await fetch("http://localhost:5201/api/Vendors/", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify(formik.values.step2),
+          body: JSON.stringify(formik.values.step3),
         });
         const response4 = await fetch("http://localhost:5201/api/Requests/", {
           method: "POST",
@@ -686,7 +714,7 @@ export const RequestForm = () => {
         </p>
       </div>
       <div className={classes.containerForm}>
-        <form className={classes.form}>
+        <form onSubmit={formik.handleSubmit} className={classes.form}>
           <Stepper
             activeStep={activeStep}
             alternativeLabel
@@ -712,9 +740,8 @@ export const RequestForm = () => {
                 <Button
                   variant="contained"
                   color="primary"
-                  type="button"
                   className={classes.button}
-                  onClick={handleCreateRequest}
+                  onClick={formik.submitForm}
                 >
                   Submit
                 </Button>
@@ -741,6 +768,23 @@ export const RequestForm = () => {
           </div>
         </form>
       </div>
+      <Dialog
+        open={dialogOpen}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">Form Submitted</DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            The form has been submitted successfully.
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleDialogClose} color="primary" autoFocus>
+            Close
+          </Button>
+        </DialogActions>
+      </Dialog>
     </div>
   );
 };
