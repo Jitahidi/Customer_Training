@@ -307,67 +307,69 @@ export const RequestForm = () => {
     {
       label: "Step 2",
       content: (
+        // Using step 3 state variables for step 2 because the variables are the same
+        // Don't want the user to have to fill out the same information twice
         <>
           {/* Step 2 text fields go here */}
           <TextField
-            {...formik.getFieldProps("step2.courseId")}
-            key="step2.courseId"
+            {...formik.getFieldProps("step3.courseId")}
+            key="step3.courseId"
             label="Course ID"
             variant="outlined"
             className={classes.textfield}
           />
           <TextField
-            {...formik.getFieldProps("step2.courseName")}
-            key="step2.courseName"
+            {...formik.getFieldProps("step3.courseName")}
+            key="step3.courseName"
             label="Course Name"
             variant="outlined"
             className={classes.textfield}
           />
           <TextField
-            {...formik.getFieldProps("step2.vendorId")}
-            key="step2.vendorId"
+            {...formik.getFieldProps("step3.vendorId")}
+            key="step3.vendorId"
             label="Vendor ID"
             variant="outlined"
             className={classes.textfield}
           />
           <TextField
-            {...formik.getFieldProps("step2.vendor_Name")}
-            key="step2.vendor_Name"
+            {...formik.getFieldProps("step3.vendor_Name")}
+            key="step3.vendor_Name"
             label="Vendor Name"
             variant="outlined"
             className={classes.textfield}
           />
           <TextField
-            {...formik.getFieldProps("step2.vendor_Mailing_Address")}
-            key="step2.vendor_Mailing_Address"
+            {...formik.getFieldProps("step3.vendor_Mailing_Address")}
+            key="step3.vendor_Mailing_Address"
             label="Vendor Mailing Address"
             variant="outlined"
             className={classes.textfield}
           />
           <TextField
-            {...formik.getFieldProps("step2.vendor_Telephone_Number")}
-            key="step2.vendor_Telephone_Number"
+            {...formik.getFieldProps("step3.vendor_Telephone_Number")}
+            key="step3.vendor_Telephone_Number"
             label="Vendor Telephone Number"
             variant="outlined"
             className={classes.textfield}
           />
           <TextField
-            {...formik.getFieldProps("step2.vendor_Email_Address")}
-            key="step2.vendor_Email_Address"
+            {...formik.getFieldProps("step3.vendor_Email_Address")}
+            key="step3.vendor_Email_Address"
             label="Vendor Email Address"
             variant="outlined"
             className={classes.textfield}
           />
           <TextField
-            {...formik.getFieldProps("step2.vendor_Website")}
-            key="step2.vendor_Website"
+            {...formik.getFieldProps("step3.vendor_Website")}
+            key="step3.vendor_Website"
             label="Vendor Website"
             variant="outlined"
             className={classes.textfield}
           />
           <TextField
-            {...formik.getFieldProps("step2.vendor_POC")}
-            key="step2.vendor_POC"
+            {...formik.getFieldProps("step3.vendor_POC")}
+            key="step3.vendor_POC"
             label="Vendor POC"
             variant="outlined"
             className={classes.textfield}
