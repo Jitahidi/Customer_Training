@@ -114,8 +114,6 @@ export const EmployeeTable = () => {
   // State variable to keep track of the row being edited and the updated values of the request.
   const [editRow, setEditRow] = useState(null);
   const [updatedRequest, setUpdatedRequest] = useState({});
-  // State variable to keep track of the active tab
-  const [activeTab, setActiveTab] = useState(0);
 
   // Retrieve data from the backend API to display data in the request table
   useEffect(() => {
@@ -250,10 +248,6 @@ export const EmployeeTable = () => {
     } catch (error) {
       console.error(error);
     }
-  };
-  // Function handles tab changes
-  const handleTabChange = (event, newValue) => {
-    setActiveTab(newValue);
   };
 
   return (

@@ -44,6 +44,7 @@ export const RequestTable = () => {
       },
 
       { Header: "Request ID", accessorKey: "requestId" },
+      { Header: "Vendor ID", accessorKey: "vendorId" },
       { Header: "Vendor Name", accessorKey: "vendor_Name" },
       {
         Header: "Vendor Mailing Address",
@@ -115,6 +116,7 @@ export const RequestTable = () => {
   const [rowToDelete, setRowToDelete] = useState(null);
   const [newRequest, setNewRequest] = useState({
     requestId: null,
+    vendorId: null,
     vendor_Name: null,
     vendor_Mailing_Address: null,
     vendor_Telephone_Number: null,
@@ -176,6 +178,7 @@ export const RequestTable = () => {
       setCreateModalOpen(false);
       setNewRequest({
         requestId: null,
+        vendorId: null,
         vendor_Name: null,
         vendor_Mailing_Address: null,
         vendor_Telephone_Number: null,
@@ -291,14 +294,6 @@ export const RequestTable = () => {
   // Function handles tab changes
   const handleTabChange = (event, newValue) => {
     setActiveTab(newValue);
-  };
-
-  const employeeTable = () => {
-    return <div>Another table goes here</div>;
-  };
-
-  const courseVendorTable = () => {
-    return <div>Another table goes here</div>;
   };
 
   return (
