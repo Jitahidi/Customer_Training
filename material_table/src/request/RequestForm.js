@@ -153,8 +153,13 @@ const initialValues = {
 };
 
 const validationSchema = Yup.object().shape({
+  step1: Yup.object().shape({
+    employeeId: Yup.string().required("Employee ID is required"),
+  }),
   step3: Yup.object().shape({
     requestId: Yup.string().required("Request ID is required"),
+    courseId: Yup.string().required("Course ID is required"),
+    vendorId: Yup.string().required("Vendor ID is required"),
   }),
 });
 
@@ -202,6 +207,14 @@ export const RequestForm = () => {
             label="Employee ID"
             variant="outlined"
             className={classes.textfield}
+            error={
+              formik.touched.step1?.employeeId &&
+              Boolean(formik.errors.step1?.employeeId)
+            }
+            helperText={
+              formik.touched.step1?.employeeId &&
+              formik.errors.step1?.employeeId
+            }
           />
           <TextField
             {...formik.getFieldProps("step1.agency_Code")}
@@ -345,6 +358,13 @@ export const RequestForm = () => {
             label="Course ID"
             variant="outlined"
             className={classes.textfield}
+            error={
+              formik.touched.step3?.courseId &&
+              Boolean(formik.errors.step3?.courseId)
+            }
+            helperText={
+              formik.touched.step3?.courseId && formik.errors.step3?.courseId
+            }
           />
           <TextField
             {...formik.getFieldProps("step3.courseName")}
@@ -359,6 +379,13 @@ export const RequestForm = () => {
             label="Vendor ID"
             variant="outlined"
             className={classes.textfield}
+            error={
+              formik.touched.step3?.vendorId &&
+              Boolean(formik.errors.step3?.vendorId)
+            }
+            helperText={
+              formik.touched.step3?.vendorId && formik.errors.step3?.vendorId
+            }
           />
           <TextField
             {...formik.getFieldProps("step3.vendor_Name")}
@@ -431,6 +458,13 @@ export const RequestForm = () => {
             label="Course ID"
             variant="outlined"
             className={classes.textfield}
+            error={
+              formik.touched.step3?.courseId &&
+              Boolean(formik.errors.step3?.courseId)
+            }
+            helperText={
+              formik.touched.step3?.courseId && formik.errors.step3?.courseId
+            }
           />
           <TextField
             {...formik.getFieldProps("step3.courseName")}
@@ -445,6 +479,13 @@ export const RequestForm = () => {
             label="Vendor ID"
             variant="outlined"
             className={classes.textfield}
+            error={
+              formik.touched.step3?.vendorId &&
+              Boolean(formik.errors.step3?.vendorId)
+            }
+            helperText={
+              formik.touched.step3?.vendorId && formik.errors.step3?.vendorId
+            }
           />
           <TextField
             {...formik.getFieldProps("step3.vendor_Name")}
@@ -615,9 +656,9 @@ export const RequestForm = () => {
   ];
 
   const stepFields = {
-    step1: [],
+    step1: ["employeeId"],
     step2: [],
-    step3: ["requestId"],
+    step3: ["requestId", "courseId", "vendorId"],
   };
 
   // The handleNext function ensures that the form only proceeds to the next step
@@ -714,7 +755,7 @@ export const RequestForm = () => {
         </p>
       </div>
       <div className={classes.containerForm}>
-        <form onSubmit={formik.handleSubmit} className={classes.form}>
+        <form className={classes.form}>
           <Stepper
             activeStep={activeStep}
             alternativeLabel
