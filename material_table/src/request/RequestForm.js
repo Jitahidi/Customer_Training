@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "column",
   },
   containerForm: {
-    marginTop: "120px",
+    marginTop: "90px",
     marginBottom: "120px",
     display: "flex",
     flexDirection: "column",
@@ -48,10 +48,6 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(1),
     marginRight: theme.spacing(1),
   },
-  instructions: {
-    marginTop: theme.spacing(1),
-    marginBottom: theme.spacing(1),
-  },
   background: {
     backgroundColor: "#42a5f5",
     minHeight: "100vh",
@@ -63,17 +59,14 @@ const useStyles = makeStyles((theme) => ({
   textfield: {
     width: "50%",
     padding: "10px",
+    marginBottom: "16px", // Add some space between the text fields
   },
   title: {
     color: "white",
     fontSize: 40,
     marginTop: "0",
     marginBottom: "0",
-    //zIndex: "10",
     fontFamily: "Inter",
-  },
-  yellowText: {
-    color: "#ffd700",
   },
   subtitle: {
     color: "white",
@@ -83,8 +76,11 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: "0",
     fontFamily: "Inter",
   },
-  greenText: {
-    color: "#8bc34a",
+  label: {
+    fontSize: 20, // Change the font size
+    fontWeight: "bold", // Make the label bold
+    marginBottom: "8px", // Add some space below the label and input field
+    fontFamily: "Inter",
   },
 }));
 
@@ -201,6 +197,7 @@ export const RequestForm = () => {
       content: (
         <>
           {/* Step 1 text fields go here */}
+          <label className={classes.label}>Employee Information</label>
           <TextField
             {...formik.getFieldProps("step1.employeeId")}
             key="step1.employeeId"
@@ -352,6 +349,7 @@ export const RequestForm = () => {
         // Don't want the user to have to fill out the same information twice
         <>
           {/* Step 2 text fields go here */}
+          <label className={classes.label}>Course Information</label>
           <TextField
             {...formik.getFieldProps("step3.courseId")}
             key="step3.courseId"
@@ -373,6 +371,7 @@ export const RequestForm = () => {
             variant="outlined"
             className={classes.textfield}
           />
+          <label className={classes.label}>Vendor Information</label>
           <TextField
             {...formik.getFieldProps("step3.vendorId")}
             key="step3.vendorId"
@@ -436,6 +435,7 @@ export const RequestForm = () => {
       label: "Step 3",
       content: (
         <>
+          <label className={classes.label}>Request Information</label>
           <TextField
             // formik.getFieldProps, returns an object containing properties such as
             // value, onChange, onBlur, and name, which are then spread onto the TextField component
