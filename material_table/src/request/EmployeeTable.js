@@ -83,36 +83,15 @@ export const EmployeeTable = () => {
     []
   );
 
-  // const DATA = useMemo(() => MOCK_DATA, [])
+  // State variable to keep track of the data that is displayed in the table
   const [data, setData] = useState([]);
-  const [createModalOpen, setCreateModalOpen] = useState(false);
-  // keeps track of whether the delete confirmation dialog is open or closed:
+  // State variable to keep track of the open state of the delete dialog
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
-  // Keeps track of the row that the user wants to delete
+  // State variable to keep track of the row that is being deleted
   const [rowToDelete, setRowToDelete] = useState(null);
-  const [newRequest, setNewRequest] = useState({
-    employeeId: null,
-    agency_Code: null,
-    first_Name: null,
-    last_Name: null,
-    middle_Initial: null,
-    home_Address: null,
-    home_Telephone: null,
-    position_Level: null,
-    organization_Mailing_Address: null,
-    office_Telephone: null,
-    work_Email_Address: null,
-    position_Title: null,
-    isSpecialAccomodationNeeded: false,
-    specialAccomodation_Details: null,
-    education_Level: null,
-    pay_Plan: null,
-    series: null,
-    grade: null,
-    step: null,
-  });
-  // State variable to keep track of the row being edited and the updated values of the request.
+  // State variable to keep track of the row that is being edited
   const [editRow, setEditRow] = useState(null);
+  // State variable to keep track of the updated request data
   const [updatedRequest, setUpdatedRequest] = useState({});
 
   // Retrieve data from the backend API to display data in the request table
@@ -123,61 +102,11 @@ export const EmployeeTable = () => {
       .catch((error) => console.log(error));
   }, []);
 
-  // Function handles create request on the frontend and backend
-  const handleCreateRequest = async () => {
-    try {
-      // Send a POST request to the backend API to create a new row in the database
-      const response = await fetch("http://localhost:5201/api/Employees/", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(newRequest),
-      });
-
-      if (!response.ok) {
-        throw new Error("Failed to create request");
-      }
-
-      // Add the request to the table
-      setData([...data, newRequest]);
-      setCreateModalOpen(false);
-      setNewRequest({
-        employeeId: null,
-        agency_Code: null,
-        first_Name: null,
-        last_Name: null,
-        middle_Initial: null,
-        home_Address: null,
-        home_Telephone: null,
-        position_Level: null,
-        organization_Mailing_Address: null,
-        office_Telephone: null,
-        work_Email_Address: null,
-        position_Title: null,
-        isSpecialAccomodationNeeded: false,
-        specialAccomodation_Details: null,
-        education_Level: null,
-        pay_Plan: null,
-        series: null,
-        grade: null,
-        step: null,
-      });
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  // This is function handles changes in the input fields for creating a new request.
-  const handleNewRequestChange = (e) => {
-    const { name, value } = e.target;
-    setNewRequest({ ...newRequest, [name]: value });
-  };
-
   const handleDeleteClick = (row) => {
     setRowToDelete(row);
     setDeleteDialogOpen(true);
   };
+
   // Function handles delete request on the frontend and backend
   const handleConfirmDelete = async () => {
     try {
@@ -250,52 +179,14 @@ export const EmployeeTable = () => {
     }
   };
 
+  // Function handles scroll to top
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
   return (
     <>
       <MaterialReactTable columns={COLUMNS} data={data} />
-      {/* Dialog box for creating new row */}
-      <Dialog
-        open={createModalOpen}
-        onClose={() => setCreateModalOpen(false)}
-        fullWidth
-        maxWidth="xs"
-      >
-        <DialogTitle>Create New Request</DialogTitle>
-        <DialogContent>
-          <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
-            <TextField
-              autoFocus
-              margin="dense"
-              name="employeeId"
-              label="Employee ID"
-              type="text"
-              value={newRequest.employeeId}
-              onChange={handleNewRequestChange}
-            />
-            <TextField
-              margin="dense"
-              name="agency_Code"
-              label="Agency Code"
-              type="text"
-              value={newRequest.agency_Code}
-              onChange={handleNewRequestChange}
-            />
-            <TextField
-              margin="dense"
-              name="first_Name"
-              label="First Name"
-              type="text"
-              value={newRequest.first_Name}
-              onChange={handleNewRequestChange}
-            />
-            {/* Add more text fields for other columns */}
-          </Box>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={() => setCreateModalOpen(false)}>Cancel</Button>
-          <Button onClick={handleCreateRequest}>Create</Button>
-        </DialogActions>
-      </Dialog>
       {/* Dialog box for editing row */}
       <Dialog
         open={editRow !== null}
@@ -352,10 +243,9 @@ export const EmployeeTable = () => {
           <Button onClick={handleConfirmDelete}>Delete</Button>
         </DialogActions>
       </Dialog>
+      {/*Button to scroll to the top of the form so the user can submit another request*/}
       <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
-        <Button onClick={() => setCreateModalOpen(true)}>
-          Add New Request
-        </Button>
+        <Button onClick={scrollToTop}>Add New Request</Button>
       </Box>
     </>
   );
