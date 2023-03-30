@@ -181,6 +181,66 @@ export const VendorTable = () => {
                 })
               }
             />
+            <TextField
+              margin="dense"
+              label="Vendor Mailing Address"
+              type="text"
+              value={updatedRequest.vendor_Mailing_Address}
+              onChange={(e) =>
+                setUpdatedRequest({
+                  ...updatedRequest,
+                  vendor_Mailing_Address: e.target.value,
+                })
+              }
+            />
+            <TextField
+              margin="dense"
+              label="Vendor Telephone Number"
+              type="text"
+              value={updatedRequest.vendor_Telephone_Number}
+              onChange={(e) =>
+                setUpdatedRequest({
+                  ...updatedRequest,
+                  vendor_Telephone_Number: e.target.value,
+                })
+              }
+            />
+            <TextField
+              margin="dense"
+              label="Vendor Email Address"
+              type="text"
+              value={updatedRequest.vendor_Email_Address}
+              onChange={(e) =>
+                setUpdatedRequest({
+                  ...updatedRequest,
+                  vendor_Email_Address: e.target.value,
+                })
+              }
+            />
+            <TextField
+              margin="dense"
+              label="Vendor Website"
+              type="text"
+              value={updatedRequest.vendor_Website}
+              onChange={(e) =>
+                setUpdatedRequest({
+                  ...updatedRequest,
+                  vendor_Website: e.target.value,
+                })
+              }
+            />
+            <TextField
+              margin="dense"
+              label="Vendor POC"
+              type="text"
+              value={updatedRequest.vendor_POC}
+              onChange={(e) =>
+                setUpdatedRequest({
+                  ...updatedRequest,
+                  vendor_POC: e.target.value,
+                })
+              }
+            />
             {/* Add more text fields for other columns */}
           </Box>
         </DialogContent>

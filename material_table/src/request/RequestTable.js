@@ -7,6 +7,7 @@ import { Tab, Tabs } from "@mui/material";
 import { EmployeeTable } from "./EmployeeTable";
 import { CourseTable } from "./CourseTable";
 import { VendorTable } from "./VendorTable";
+import "typeface-inter";
 import {
   Box,
   Button,
@@ -18,6 +19,28 @@ import {
   Tooltip,
   Typography,
 } from "@mui/material";
+
+import { makeStyles } from "@material-ui/core/styles";
+
+const useStyles = makeStyles((theme) => ({
+  tableContainer: {
+    backgroundColor: "#4285F4", // Change this to the desired background color
+    padding: theme.spacing(2),
+  },
+  tableBackground: {
+    backgroundColor: "#4285F4", // Change this to the desired background color
+    width: "95%",
+    margin: "0 auto",
+  },
+  tabsColor: {
+    backgroundColor: "#FFFFFF", // Change this to the desired background color
+    width: "95%",
+    margin: "0 auto",
+  },
+  addButton: {
+    color: "#FFFFFF", // Change this to the desired background color
+  },
+}));
 
 export const RequestTable = () => {
   const COLUMNS = useMemo(
@@ -84,7 +107,7 @@ export const RequestTable = () => {
       },
       {
         Header: "Training Accreditation Indicator",
-        accessorKey: "training_AccreditionIdicator",
+        accessorKey: "training_AccreditionIndicator",
       },
       {
         Header: "Continued Service Agreement Expiration Date",
@@ -127,6 +150,8 @@ export const RequestTable = () => {
       .then((data) => setData(data))
       .catch((error) => console.log(error));
   }, []);
+
+  const classes = useStyles();
 
   const handleDeleteClick = (row) => {
     setRowToDelete(row);
@@ -217,9 +242,24 @@ export const RequestTable = () => {
   };
 
   return (
-    <>
-      <Box sx={{ width: "100%" }}>
-        <Tabs value={activeTab} onChange={handleTabChange}>
+    <div className={classes.tableContainer}>
+      {/* Tab bar */}
+      <h1
+        style={{
+          color: "white",
+          fontSize: "28px",
+          fontFamily: "Inter, sans-serif",
+        }}
+      >
+        Tables showing all requests and employees information stored in the
+        Postgresql database
+      </h1>
+      <Box>
+        <Tabs
+          className={classes.tabsColor}
+          value={activeTab}
+          onChange={handleTabChange}
+        >
           <Tab label="Request Table" />
           <Tab label="Employee Table" />
           <Tab label="Course Table" />
@@ -227,7 +267,7 @@ export const RequestTable = () => {
         </Tabs>
       </Box>
       {activeTab === 0 && (
-        <>
+        <div className={classes.tableBackground}>
           <MaterialReactTable columns={COLUMNS} data={data} />
           {/* Dialog box for editing row */}
           <Dialog
@@ -239,6 +279,18 @@ export const RequestTable = () => {
             <DialogTitle>Edit Request</DialogTitle>
             <DialogContent>
               <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+                <TextField
+                  margin="dense"
+                  label="Course Name"
+                  type="text"
+                  value={updatedRequest.courseName}
+                  onChange={(e) =>
+                    setUpdatedRequest({
+                      ...updatedRequest,
+                      courseName: e.target.value,
+                    })
+                  }
+                />
                 <TextField
                   margin="dense"
                   label="Vendor Name"
@@ -260,6 +312,261 @@ export const RequestTable = () => {
                     setUpdatedRequest({
                       ...updatedRequest,
                       vendor_Mailing_Address: e.target.value,
+                    })
+                  }
+                />
+                <TextField
+                  margin="dense"
+                  label="Vendor Telephone Number"
+                  type="text"
+                  value={updatedRequest.vendor_Telephone_Number}
+                  onChange={(e) =>
+                    setUpdatedRequest({
+                      ...updatedRequest,
+                      vendor_Telephone_Number: e.target.value,
+                    })
+                  }
+                />
+                <TextField
+                  margin="dense"
+                  label="Vendor Email Address"
+                  type="text"
+                  value={updatedRequest.vendor_Email_Address}
+                  onChange={(e) =>
+                    setUpdatedRequest({
+                      ...updatedRequest,
+                      vendor_Email_Address: e.target.value,
+                    })
+                  }
+                />
+                <TextField
+                  margin="dense"
+                  label="Vendor Website"
+                  type="text"
+                  value={updatedRequest.vendor_Website}
+                  onChange={(e) =>
+                    setUpdatedRequest({
+                      ...updatedRequest,
+                      vendor_Website: e.target.value,
+                    })
+                  }
+                />
+                <TextField
+                  margin="dense"
+                  label="Vendor POC"
+                  type="text"
+                  value={updatedRequest.vendor_POC}
+                  onChange={(e) =>
+                    setUpdatedRequest({
+                      ...updatedRequest,
+                      vendor_POC: e.target.value,
+                    })
+                  }
+                />
+                <TextField
+                  margin="dense"
+                  label="Training Start Date"
+                  type="text"
+                  value={updatedRequest.training_StartDate}
+                  onChange={(e) =>
+                    setUpdatedRequest({
+                      ...updatedRequest,
+                      training_StartDate: e.target.value,
+                    })
+                  }
+                />
+                <TextField
+                  margin="dense"
+                  label="Training End Date"
+                  type="text"
+                  value={updatedRequest.training_EndDate}
+                  onChange={(e) =>
+                    setUpdatedRequest({
+                      ...updatedRequest,
+                      training_EndDate: e.target.value,
+                    })
+                  }
+                />
+                <TextField
+                  margin="dense"
+                  label="Training Duty Hours"
+                  type="text"
+                  value={updatedRequest.training_DutyHours}
+                  onChange={(e) =>
+                    setUpdatedRequest({
+                      ...updatedRequest,
+                      training_DutyHours: e.target.value,
+                    })
+                  }
+                />
+                <TextField
+                  margin="dense"
+                  label="Training Non-Duty Hours"
+                  type="text"
+                  value={updatedRequest.training_NonDutyHours}
+                  onChange={(e) =>
+                    setUpdatedRequest({
+                      ...updatedRequest,
+                      training_NonDutyHours: e.target.value,
+                    })
+                  }
+                />
+                <TextField
+                  margin="dense"
+                  label="Training Purpose Type"
+                  type="text"
+                  value={updatedRequest.training_PurposeType}
+                  onChange={(e) =>
+                    setUpdatedRequest({
+                      ...updatedRequest,
+                      training_PurposeType: e.target.value,
+                    })
+                  }
+                />
+                <TextField
+                  margin="dense"
+                  label="Training Type Code"
+                  type="text"
+                  value={updatedRequest.training_TypeCode}
+                  onChange={(e) =>
+                    setUpdatedRequest({
+                      ...updatedRequest,
+                      training_TypeCode: e.target.value,
+                    })
+                  }
+                />
+                <TextField
+                  margin="dense"
+                  label="Training Sub Type Code"
+                  type="text"
+                  value={updatedRequest.training_SubTypeCode}
+                  onChange={(e) =>
+                    setUpdatedRequest({
+                      ...updatedRequest,
+                      training_SubTypeCode: e.target.value,
+                    })
+                  }
+                />
+                <TextField
+                  margin="dense"
+                  label="Training Delivery Type Code"
+                  type="text"
+                  value={updatedRequest.training_DeliveryTypeCode}
+                  onChange={(e) =>
+                    setUpdatedRequest({
+                      ...updatedRequest,
+                      training_DeliveryTypeCode: e.target.value,
+                    })
+                  }
+                />
+                <TextField
+                  margin="dense"
+                  label="Training Designation Type Code"
+                  type="text"
+                  value={updatedRequest.training_DesignationTypeCode}
+                  onChange={(e) =>
+                    setUpdatedRequest({
+                      ...updatedRequest,
+                      training_DesignationTypeCode: e.target.value,
+                    })
+                  }
+                />
+                <TextField
+                  margin="dense"
+                  label="Training Credit"
+                  type="text"
+                  value={updatedRequest.training_Credit}
+                  onChange={(e) =>
+                    setUpdatedRequest({
+                      ...updatedRequest,
+                      training_Credit: e.target.value,
+                    })
+                  }
+                />
+                <TextField
+                  margin="dense"
+                  label="Training Credit Type Code"
+                  type="text"
+                  value={updatedRequest.training_CreditTypeCode}
+                  onChange={(e) =>
+                    setUpdatedRequest({
+                      ...updatedRequest,
+                      training_CreditTypeCode: e.target.value,
+                    })
+                  }
+                />
+                <TextField
+                  margin="dense"
+                  label="Training Accreditation Indicator"
+                  type="text"
+                  value={updatedRequest.training_AccreditionIndicator}
+                  onChange={(e) =>
+                    setUpdatedRequest({
+                      ...updatedRequest,
+                      training_AccreditionIndicator: e.target.value,
+                    })
+                  }
+                />
+                <TextField
+                  margin="dense"
+                  label="Continued Service Agreement Expiration Date"
+                  type="text"
+                  value={
+                    updatedRequest.continued_Service_Agreement_ExpirationDate
+                  }
+                  onChange={(e) =>
+                    setUpdatedRequest({
+                      ...updatedRequest,
+                      continued_Service_Agreement_ExpirationDate:
+                        e.target.value,
+                    })
+                  }
+                />
+                <TextField
+                  margin="dense"
+                  label="Training Source Type Code"
+                  type="text"
+                  value={updatedRequest.training_Source_TypeCode}
+                  onChange={(e) =>
+                    setUpdatedRequest({
+                      ...updatedRequest,
+                      training_Source_TypeCode: e.target.value,
+                    })
+                  }
+                />
+                <TextField
+                  margin="dense"
+                  label="Individual or Group Training"
+                  type="text"
+                  value={updatedRequest.individual_or_Group_Training}
+                  onChange={(e) =>
+                    setUpdatedRequest({
+                      ...updatedRequest,
+                      individual_or_Group_Training: e.target.value,
+                    })
+                  }
+                />
+                <TextField
+                  margin="dense"
+                  label="Student Membership ID"
+                  type="text"
+                  value={updatedRequest.student_Membership_ID}
+                  onChange={(e) =>
+                    setUpdatedRequest({
+                      ...updatedRequest,
+                      student_Membership_ID: e.target.value,
+                    })
+                  }
+                />
+                <TextField
+                  margin="dense"
+                  label="Skill Learning Objective"
+                  type="text"
+                  value={updatedRequest.skill_Learning_Objective}
+                  onChange={(e) =>
+                    setUpdatedRequest({
+                      ...updatedRequest,
+                      skill_Learning_Objective: e.target.value,
                     })
                   }
                 />
@@ -289,9 +596,16 @@ export const RequestTable = () => {
           </Dialog>
           {/*Button to scroll to the top of the form so the user can submit another request*/}
           <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
-            <Button onClick={scrollToTop}>Add New Request</Button>
+            <Button
+              variant="contained"
+              color="primary"
+              className={classes.addButton}
+              onClick={scrollToTop}
+            >
+              scrollToTop
+            </Button>
           </Box>
-        </>
+        </div>
       )}
       {activeTab === 1 && (
         <>
@@ -308,6 +622,6 @@ export const RequestTable = () => {
           <VendorTable />
         </>
       )}
-    </>
+    </div>
   );
 };

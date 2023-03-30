@@ -3,6 +3,7 @@ import MaterialReactTable from "material-react-table";
 //import MOCK_DATA from './MOCK_DATA.json';
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
+import { Checkbox, FormControlLabel } from "@mui/material";
 import {
   Box,
   Button,
@@ -63,6 +64,13 @@ export const EmployeeTable = () => {
       {
         Header: "Is Special Accommodation Needed",
         accessorKey: "isSpecialAccomodationNeeded",
+        // Allows the user to see the checkbox that indicates that special accomodation is needed
+        Cell: ({ row }) => (
+          <Checkbox
+            checked={row.original.isSpecialAccomodationNeeded}
+            disabled
+          />
+        ),
       },
       {
         Header: "Special Accomodation Details",
@@ -218,6 +226,200 @@ export const EmployeeTable = () => {
                 setUpdatedRequest({
                   ...updatedRequest,
                   first_Name: e.target.value,
+                })
+              }
+            />
+            <TextField
+              margin="dense"
+              label="Last Name"
+              type="text"
+              value={updatedRequest.last_Name}
+              onChange={(e) =>
+                setUpdatedRequest({
+                  ...updatedRequest,
+                  last_Name: e.target.value,
+                })
+              }
+            />
+            <TextField
+              margin="dense"
+              label="Middle Initial"
+              type="text"
+              value={updatedRequest.middle_Initial}
+              onChange={(e) =>
+                setUpdatedRequest({
+                  ...updatedRequest,
+                  middle_Initial: e.target.value,
+                })
+              }
+            />
+            <TextField
+              margin="dense"
+              label="Home Address"
+              type="text"
+              value={updatedRequest.home_Address}
+              onChange={(e) =>
+                setUpdatedRequest({
+                  ...updatedRequest,
+                  home_Address: e.target.value,
+                })
+              }
+            />
+            <TextField
+              margin="dense"
+              label="Home Telephone"
+              type="text"
+              value={updatedRequest.home_Telephone}
+              onChange={(e) =>
+                setUpdatedRequest({
+                  ...updatedRequest,
+                  home_Telephone: e.target.value,
+                })
+              }
+            />
+            <TextField
+              margin="dense"
+              label="Position Level"
+              type="text"
+              value={updatedRequest.position_Level}
+              onChange={(e) =>
+                setUpdatedRequest({
+                  ...updatedRequest,
+                  position_Level: e.target.value,
+                })
+              }
+            />
+            <TextField
+              margin="dense"
+              label="Organization Mailing Address"
+              type="text"
+              value={updatedRequest.organization_Mailing_Address}
+              onChange={(e) =>
+                setUpdatedRequest({
+                  ...updatedRequest,
+                  organization_Mailing_Address: e.target.value,
+                })
+              }
+            />
+            <TextField
+              margin="dense"
+              label="Office Telephone"
+              type="text"
+              value={updatedRequest.office_Telephone}
+              onChange={(e) =>
+                setUpdatedRequest({
+                  ...updatedRequest,
+                  office_Telephone: e.target.value,
+                })
+              }
+            />
+            <TextField
+              margin="dense"
+              label="Work Email Address"
+              type="text"
+              value={updatedRequest.work_Email_Address}
+              onChange={(e) =>
+                setUpdatedRequest({
+                  ...updatedRequest,
+                  work_Email_Address: e.target.value,
+                })
+              }
+            />
+            <TextField
+              margin="dense"
+              label="Position Title"
+              type="text"
+              value={updatedRequest.position_Title}
+              onChange={(e) =>
+                setUpdatedRequest({
+                  ...updatedRequest,
+                  position_Title: e.target.value,
+                })
+              }
+            />
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={updatedRequest.isSpecialAccomodationNeeded || false}
+                  onChange={(e) =>
+                    setUpdatedRequest({
+                      ...updatedRequest,
+                      isSpecialAccomodationNeeded: e.target.checked,
+                    })
+                  }
+                />
+              }
+              label="Is Special Accommodation Needed?"
+            />
+            <TextField
+              margin="dense"
+              label="Special Accomodation Details"
+              type="text"
+              value={updatedRequest.specialAccomodation_Details}
+              onChange={(e) =>
+                setUpdatedRequest({
+                  ...updatedRequest,
+                  specialAccomodation_Details: e.target.value,
+                })
+              }
+            />
+            <TextField
+              margin="dense"
+              label="Education Level"
+              type="text"
+              value={updatedRequest.education_Level}
+              onChange={(e) =>
+                setUpdatedRequest({
+                  ...updatedRequest,
+                  education_Level: e.target.value,
+                })
+              }
+            />
+            <TextField
+              margin="dense"
+              label="Pay Plan"
+              type="text"
+              value={updatedRequest.pay_Plan}
+              onChange={(e) =>
+                setUpdatedRequest({
+                  ...updatedRequest,
+                  pay_Plan: e.target.value,
+                })
+              }
+            />
+            <TextField
+              margin="dense"
+              label="Series"
+              type="text"
+              value={updatedRequest.series}
+              onChange={(e) =>
+                setUpdatedRequest({
+                  ...updatedRequest,
+                  series: e.target.value,
+                })
+              }
+            />
+            <TextField
+              margin="dense"
+              label="Grade"
+              type="text"
+              value={updatedRequest.grade}
+              onChange={(e) =>
+                setUpdatedRequest({
+                  ...updatedRequest,
+                  grade: e.target.value,
+                })
+              }
+            />
+            <TextField
+              margin="dense"
+              label="Step"
+              type="text"
+              value={updatedRequest.step}
+              onChange={(e) =>
+                setUpdatedRequest({
+                  ...updatedRequest,
+                  step: e.target.value,
                 })
               }
             />

@@ -9,14 +9,16 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
+import { Checkbox, FormControlLabel } from "@mui/material";
 import "typeface-inter";
+import { FormControl, InputLabel, Select, MenuItem } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   form: {
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    backgroundColor: "white",
+    backgroundColor: "#FFFFFF",
     borderRadius: "8px",
     padding: "32px",
     boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
@@ -39,6 +41,7 @@ const useStyles = makeStyles((theme) => ({
   stepper: {
     padding: theme.spacing(3, 0),
     width: "105%", // set a fixed pixel width for the stepper
+    backgroundColor: "#FFFFFF",
   },
   button: {
     marginTop: theme.spacing(1),
@@ -49,7 +52,7 @@ const useStyles = makeStyles((theme) => ({
     marginRight: theme.spacing(1),
   },
   background: {
-    backgroundColor: "#42a5f5",
+    backgroundColor: "#4285F4",
     minHeight: "100vh",
     display: "flex",
     flexDirection: "column", // Position the form below the title
@@ -60,10 +63,21 @@ const useStyles = makeStyles((theme) => ({
     width: "50%",
     padding: "10px",
     marginBottom: "16px", // Add some space between the text fields
+    textAlign: "left",
+    "& .MuiOutlinedInput-root": {
+      "&:hover .MuiOutlinedInput-notchedOutline": {
+        borderColor: theme.palette.primary.main,
+        borderWidth: "thin",
+      },
+      "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+        borderColor: theme.palette.primary.main,
+        borderWidth: "thin",
+      },
+    },
   },
   title: {
     color: "white",
-    fontSize: 40,
+    fontSize: 35,
     marginTop: "0",
     marginBottom: "0",
     fontFamily: "Inter",
@@ -160,10 +174,10 @@ const validationSchema = Yup.object().shape({
 });
 
 export const RequestForm = () => {
-  const classes = useStyles();
   const [activeStep, setActiveStep] = useState(0);
   // Open dialog box when user clicks submit
   const [dialogOpen, setDialogOpen] = useState(false);
+  const classes = useStyles();
 
   const handleDialogClose = () => {
     setDialogOpen(false);
@@ -204,6 +218,10 @@ export const RequestForm = () => {
             label="Employee ID"
             variant="outlined"
             className={classes.textfield}
+            InputProps={{
+              title:
+                "Employee ID is the 9 digit number on your ID badge. If you do not know your Employee ID, please contact your HR representative.",
+            }}
             error={
               formik.touched.step1?.employeeId &&
               Boolean(formik.errors.step1?.employeeId)
@@ -219,6 +237,10 @@ export const RequestForm = () => {
             label="Agency Code"
             variant="outlined"
             className={classes.textfield}
+            InputProps={{
+              title:
+                "Agency Code is the first 3 digits of your employee ID. If you do not know your Agency Code, please contact your HR representative.",
+            }}
           />
           <TextField
             {...formik.getFieldProps("step1.first_Name")}
@@ -255,19 +277,41 @@ export const RequestForm = () => {
             variant="outlined"
             className={classes.textfield}
           />
-          <TextField
-            {...formik.getFieldProps("step1.position_Level")}
-            key="step1.position_Level"
-            label="Position Level"
+          <FormControl
             variant="outlined"
             className={classes.textfield}
-          />
+            fullWidth
+          >
+            <InputLabel htmlFor="step1.position_Level">
+              Position Level
+            </InputLabel>
+            <Select
+              label="Position Level"
+              {...formik.getFieldProps("step1.position_Level")}
+              inputProps={{
+                name: "step1.position_Level",
+                id: "step1.position_Level",
+              }}
+            >
+              <MenuItem value="null">
+                <em>None</em>
+              </MenuItem>
+              <MenuItem value="Non-supervisory">Non-supervisory</MenuItem>
+              <MenuItem value="Supervisory">Supervisory</MenuItem>
+              <MenuItem value="Manager">Manager</MenuItem>
+              <MenuItem value="Executive">Executive</MenuItem>
+            </Select>
+          </FormControl>
           <TextField
             {...formik.getFieldProps("step1.organization_Mailing_Address")}
             key="step1.organization_Mailing_Address"
             label="Organization Mailing Address"
             variant="outlined"
             className={classes.textfield}
+            InputProps={{
+              title:
+                "Enter the internal agency address of the applicant's Branch-Division/Office/Bureau/Agency, including the street name, city, state and zip code.",
+            }}
           />
           <TextField
             {...formik.getFieldProps("step1.office_Telephone")}
@@ -289,34 +333,78 @@ export const RequestForm = () => {
             label="Position Title"
             variant="outlined"
             className={classes.textfield}
+            InputProps={{
+              title:
+                "Enter the applicant's current position title within the agency.",
+            }}
           />
-          <TextField
-            {...formik.getFieldProps("step1.isSpecialAccomodationNeeded")}
-            key="step1.isSpecialAccomodationNeeded"
-            label="Is Special Accomodation Needed"
-            variant="outlined"
-            className={classes.textfield}
+          <FormControlLabel
+            control={
+              <Checkbox
+                checked={
+                  formik.values.step1.isSpecialAccomodationNeeded || false
+                }
+                onChange={(e) =>
+                  formik.setFieldValue(
+                    "step1.isSpecialAccomodationNeeded",
+                    e.target.checked
+                  )
+                }
+                name="step1.isSpecialAccomodationNeeded"
+              />
+            }
+            label="Is Special Accomodation Needed?"
+            className={classes.checkbox}
           />
+
           <TextField
             {...formik.getFieldProps("step1.specialAccomodation_Details")}
             key="step1.specialAccomodation_Details"
             label="Special Accomodation Details"
             variant="outlined"
             className={classes.textfield}
+            disabled={!formik.values.step1.isSpecialAccomodationNeeded}
+            InputProps={{
+              title:
+                "Check box if the applicant is in need of special arrangements (brailing, taping, interpreters, facility accessibility, etc.).",
+            }}
           />
-          <TextField
-            {...formik.getFieldProps("step1.education_Level")}
-            key="step1.education_Level"
-            label="Education Level"
+          <FormControl
             variant="outlined"
             className={classes.textfield}
-          />
+            fullWidth
+          >
+            <InputLabel htmlFor="step1.education_Level">
+              Education Level
+            </InputLabel>
+            <Select
+              label="Education Level"
+              {...formik.getFieldProps("step1.education_Level")}
+              inputProps={{
+                name: "step1.education_Level",
+                id: "step1.education_Level",
+              }}
+            >
+              <MenuItem value="null">
+                <em>None</em>
+              </MenuItem>
+              <MenuItem value="High School">High School</MenuItem>
+              <MenuItem value="Associate's">Associate's</MenuItem>
+              <MenuItem value="Bachelor's">Bachelor's</MenuItem>
+              <MenuItem value="Master's">Master's</MenuItem>
+              <MenuItem value="Doctorate">Doctorate</MenuItem>
+            </Select>
+          </FormControl>
           <TextField
             {...formik.getFieldProps("step1.pay_Plan")}
             key="step1.pay_Plan"
             label="Pay Plan"
             variant="outlined"
             className={classes.textfield}
+            InputProps={{
+              title:
+                "Enter the applicant's pay plan. (e.g., GS, WG, ES…Pay Band).",
+            }}
           />
           <TextField
             {...formik.getFieldProps("step1.series")}
@@ -324,6 +412,10 @@ export const RequestForm = () => {
             label="Series"
             variant="outlined"
             className={classes.textfield}
+            InputProps={{
+              title:
+                "Enter the applicant's position classification four-digit series (e.g., 0201).",
+            }}
           />
           <TextField
             {...formik.getFieldProps("step1.grade")}
@@ -331,6 +423,9 @@ export const RequestForm = () => {
             label="Grade"
             variant="outlined"
             className={classes.textfield}
+            InputProps={{
+              title: "Enter the applicant's grade level (1-15).",
+            }}
           />
           <TextField
             {...formik.getFieldProps("step1.step")}
@@ -338,6 +433,9 @@ export const RequestForm = () => {
             label="Step"
             variant="outlined"
             className={classes.textfield}
+            InputProps={{
+              title: "The applicant must insert the appropriate step (1-10).",
+            }}
           />
         </>
       ),
@@ -363,6 +461,9 @@ export const RequestForm = () => {
             helperText={
               formik.touched.step3?.courseId && formik.errors.step3?.courseId
             }
+            InputProps={{
+              title: "Enter the number assigned to the course.",
+            }}
           />
           <TextField
             {...formik.getFieldProps("step3.courseName")}
@@ -370,6 +471,10 @@ export const RequestForm = () => {
             label="Course Name"
             variant="outlined"
             className={classes.textfield}
+            InputProps={{
+              title:
+                "The title of the course or the program that the applicant is scheduled to complete.",
+            }}
           />
           <label className={classes.label}>Vendor Information</label>
           <TextField
@@ -385,6 +490,9 @@ export const RequestForm = () => {
             helperText={
               formik.touched.step3?.vendorId && formik.errors.step3?.vendorId
             }
+            InputProps={{
+              title: "Vendor ID is the same as the vendor's site code.",
+            }}
           />
           <TextField
             {...formik.getFieldProps("step3.vendor_Name")}
@@ -399,6 +507,10 @@ export const RequestForm = () => {
             label="Vendor Mailing Address"
             variant="outlined"
             className={classes.textfield}
+            InputProps={{
+              title:
+                "Enter the mailing address of the training vendor, including the street number, city, state, and ZIP code.",
+            }}
           />
           <TextField
             {...formik.getFieldProps("step3.vendor_Telephone_Number")}
@@ -427,6 +539,9 @@ export const RequestForm = () => {
             label="Vendor POC"
             variant="outlined"
             className={classes.textfield}
+            InputProps={{
+              title: "Enter the name of the vendor's point-of-contact (POC).",
+            }}
           />
         </>
       ),
@@ -451,6 +566,9 @@ export const RequestForm = () => {
             helperText={
               formik.touched.step3?.requestId && formik.errors.step3?.requestId
             }
+            InputProps={{
+              title: "Enter a unique code to be used to identify your request.",
+            }}
           />
           <TextField
             {...formik.getFieldProps("step3.courseId")}
@@ -465,6 +583,9 @@ export const RequestForm = () => {
             helperText={
               formik.touched.step3?.courseId && formik.errors.step3?.courseId
             }
+            InputProps={{
+              title: "Enter the number assigned to the course.",
+            }}
           />
           <TextField
             {...formik.getFieldProps("step3.courseName")}
@@ -472,6 +593,10 @@ export const RequestForm = () => {
             label="Course Name"
             variant="outlined"
             className={classes.textfield}
+            InputProps={{
+              title:
+                "The title of the course or the program that the applicant is scheduled to complete.",
+            }}
           />
           <TextField
             {...formik.getFieldProps("step3.vendorId")}
@@ -486,6 +611,9 @@ export const RequestForm = () => {
             helperText={
               formik.touched.step3?.vendorId && formik.errors.step3?.vendorId
             }
+            InputProps={{
+              title: "Vendor ID is the same as the vendor's site code.",
+            }}
           />
           <TextField
             {...formik.getFieldProps("step3.vendor_Name")}
@@ -500,6 +628,10 @@ export const RequestForm = () => {
             label="Vendor Mailing Address"
             variant="outlined"
             className={classes.textfield}
+            InputProps={{
+              title:
+                "Enter the mailing address of the training vendor, including the street number, city, state, and ZIP code.",
+            }}
           />
           <TextField
             {...formik.getFieldProps("step3.vendor_Telephone_Number")}
@@ -528,6 +660,9 @@ export const RequestForm = () => {
             label="Vendor POC"
             variant="outlined"
             className={classes.textfield}
+            InputProps={{
+              title: "Enter the name of the vendor's point-of-contact (POC).",
+            }}
           />
           <TextField
             {...formik.getFieldProps("step3.training_StartDate")}
@@ -535,6 +670,9 @@ export const RequestForm = () => {
             label="Training Start Date"
             variant="outlined"
             className={classes.textfield}
+            InputProps={{
+              title: "Enter date in this format: 2023-04-23T18:25:43.511Z",
+            }}
           />
           <TextField
             {...formik.getFieldProps("step3.training_EndDate")}
@@ -542,6 +680,9 @@ export const RequestForm = () => {
             label="Training End Date"
             variant="outlined"
             className={classes.textfield}
+            InputProps={{
+              title: "Enter date in this format: 2023-04-23T18:25:43.511Z",
+            }}
           />
           <TextField
             {...formik.getFieldProps("step3.training_DutyHours")}
@@ -553,7 +694,7 @@ export const RequestForm = () => {
           <TextField
             {...formik.getFieldProps("step3.training_NonDutyHours")}
             key="step3.training_NonDutyHours"
-            label="training Non Duty Hours"
+            label="Training Non Duty Hours"
             variant="outlined"
             className={classes.textfield}
           />
@@ -747,7 +888,8 @@ export const RequestForm = () => {
     <div className={classes.background}>
       <div className={classes.containerTitle}>
         <h1 className={classes.title}>
-          Authorization, Agreement, and Certification of Training(SF-182)
+          Training Request Form Based on the Authorization, Agreement, and
+          Certification of Training(SF-182)
         </h1>
         <p className={classes.subtitle}>
           Form used by the United States federal government to request training
