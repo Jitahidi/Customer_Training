@@ -37,6 +37,7 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
+    width: "300px", // set a fixed pixel width for the stepper
   },
   stepper: {
     padding: theme.spacing(3, 0),
@@ -182,7 +183,7 @@ export const RequestForm = () => {
   const handleDialogClose = () => {
     setDialogOpen(false);
     window.scrollTo(0, 0);
-    window.location.reload();
+    //window.location.reload();
   };
 
   const formik = useFormik({
@@ -193,7 +194,7 @@ export const RequestForm = () => {
       if (activeStep === steps.length - 1) {
         handleCreateRequest(values);
         setDialogOpen(true);
-        resetForm();
+        //resetForm();
         setActiveStep(0);
       } else {
         // This ensures that when the form is submitted at step 3,
@@ -690,6 +691,10 @@ export const RequestForm = () => {
             label="Training Duty Hours"
             variant="outlined"
             className={classes.textfield}
+            InputProps={{
+              title:
+                "Enter the number of the applicant’s duty hours required to successfully complete the training.",
+            }}
           />
           <TextField
             {...formik.getFieldProps("step3.training_NonDutyHours")}
@@ -697,63 +702,217 @@ export const RequestForm = () => {
             label="Training Non Duty Hours"
             variant="outlined"
             className={classes.textfield}
+            InputProps={{
+              title:
+                "Number of employee’s non-duty hours required to successfully complete the training.",
+            }}
           />
-          <TextField
-            {...formik.getFieldProps("step3.training_PurposeType")}
-            key="step3.training_PurposeType"
-            label="Training Purpose Type"
+          <FormControl
             variant="outlined"
             className={classes.textfield}
-          />
-          <TextField
-            {...formik.getFieldProps("step3.training_TypeCode")}
-            key="step3.training_TypeCode"
-            label="Training Type Code"
+            fullWidth
+          >
+            <InputLabel htmlFor="step3.training_PurposeType">
+              Training Purpose Type
+            </InputLabel>
+            <Select
+              label="Training Purpose Type"
+              {...formik.getFieldProps("step3.training_PurposeType")}
+              inputProps={{
+                name: "step3.training_PurposeType",
+                id: "step3.training_PurposeType",
+              }}
+            >
+              <MenuItem value="null">
+                <em>None</em>
+              </MenuItem>
+              <MenuItem value="Program/Mission">Program/Mission</MenuItem>
+              <MenuItem value="New Work Assignment">
+                New Work Assignment
+              </MenuItem>
+              <MenuItem value="Improve/Maintain Present Performance">
+                Improve/Maintain Present Performance
+              </MenuItem>
+              <MenuItem value="Future Staffing Needs">
+                Future Staffing Needs
+              </MenuItem>
+              <MenuItem value="Develop Unavailable Skills">
+                Develop Unavailable Skills
+              </MenuItem>
+              <MenuItem value="Retention">Retention</MenuItem>
+            </Select>
+          </FormControl>
+          <FormControl
             variant="outlined"
             className={classes.textfield}
-          />
-          <TextField
-            {...formik.getFieldProps("step3.training_SubTypeCode")}
-            key="step3.training_SubTypeCode"
-            label="Training Sub Type Code"
+            fullWidth
+          >
+            <InputLabel htmlFor="step3.training_TypeCode">
+              Training Type Code
+            </InputLabel>
+            <Select
+              label="Training Type Code"
+              {...formik.getFieldProps("step3.training_TypeCode")}
+              inputProps={{
+                name: "step3.training_TypeCode",
+                id: "step3.training_TypeCode",
+              }}
+            >
+              <MenuItem value="null">
+                <em>None</em>
+              </MenuItem>
+              <MenuItem value={1}>1 - Training Program Area</MenuItem>
+              <MenuItem value={2}>2 - Developmental Training</MenuItem>
+              <MenuItem value={3}>3 - Basic Training Area</MenuItem>
+            </Select>
+          </FormControl>
+          <FormControl
             variant="outlined"
             className={classes.textfield}
-          />
-          <TextField
-            {...formik.getFieldProps("step3.training_DeliveryTypeCode")}
-            key="step3.training_DeliveryTypeCode"
-            label="Training Delivery Type Code"
+            fullWidth
+          >
+            <InputLabel htmlFor="step3.training_SubTypeCode">
+              Training Sub Type Code
+            </InputLabel>
+            <Select
+              label="Training Sub Type Code"
+              {...formik.getFieldProps("step3.training_SubTypeCode")}
+              inputProps={{
+                name: "step3.training_SubTypeCode",
+                id: "step3.training_SubTypeCode",
+              }}
+            >
+              <MenuItem value="null">
+                <em>None</em>
+              </MenuItem>
+              <MenuItem value={1}>1a - Medical and Health</MenuItem>
+              <MenuItem value={2}>1b - Human Resources</MenuItem>
+              <MenuItem value={3}>2a - Management Program</MenuItem>
+              <MenuItem value={4}>2b - Mentoring Program</MenuItem>
+              <MenuItem value={5}>3a - Employee Orientation</MenuItem>
+              <MenuItem value={6}>3b - Federally Mandated Training</MenuItem>
+            </Select>
+          </FormControl>
+          <FormControl
             variant="outlined"
             className={classes.textfield}
-          />
-          <TextField
-            {...formik.getFieldProps("step3.training_DesignationTypeCode")}
-            key="step3.training_DesignationTypeCode"
-            label="Training Designation Type Code"
+            fullWidth
+          >
+            <InputLabel htmlFor="step3.training_DeliveryTypeCode">
+              Training Delivery Type Code
+            </InputLabel>
+            <Select
+              label="Training Delivery Type Code"
+              {...formik.getFieldProps("step3.training_DeliveryTypeCode")}
+              inputProps={{
+                name: "step3.training_DeliveryTypeCode",
+                id: "step3.training_DeliveryTypeCode",
+              }}
+            >
+              <MenuItem value="null">
+                <em>None</em>
+              </MenuItem>
+              <MenuItem value={1}>
+                1 - Traditional Classroom(no technology)
+              </MenuItem>
+              <MenuItem value={2}>2 - On the Job</MenuItem>
+              <MenuItem value={3}>3 - Technology Based</MenuItem>
+              <MenuItem value={4}>4 - Conference/Workshop</MenuItem>
+              <MenuItem value={5}>5 - Blended</MenuItem>
+              <MenuItem value={6}>6 - Correspondence</MenuItem>
+            </Select>
+          </FormControl>
+          <FormControl
             variant="outlined"
             className={classes.textfield}
-          />
+            fullWidth
+          >
+            <InputLabel htmlFor="step3.training_DesignationTypeCode">
+              Training Designation Type Code
+            </InputLabel>
+            <Select
+              label="Training Designation Type Code"
+              {...formik.getFieldProps("step3.training_DesignationTypeCode")}
+              inputProps={{
+                name: "step3.training_DesignationTypeCode",
+                id: "step3.training_DesignationTypeCode",
+              }}
+            >
+              <MenuItem value="null">
+                <em>None</em>
+              </MenuItem>
+              <MenuItem value={1}>1 - Undergraduate Credit</MenuItem>
+              <MenuItem value={2}>2 - Graduate Credit</MenuItem>
+              <MenuItem value={3}>3 - Continuing Education Unit</MenuItem>
+              <MenuItem value={4}>4 - Post Graduate Credit</MenuItem>
+            </Select>
+          </FormControl>
           <TextField
             {...formik.getFieldProps("step3.training_Credit")}
             key="step3.training_Credit"
             label="Training Credit"
             variant="outlined"
             className={classes.textfield}
+            InputProps={{
+              title:
+                "Enter the number of academic credit hours or continued education units (1, 1.5, or .75) earned by the applicant for the completed training.",
+            }}
           />
-          <TextField
-            {...formik.getFieldProps("step3.training_CreditTypeCode")}
-            key="step3.training_CreditTypeCode"
-            label="Training Credit Type Code"
+          <FormControl
             variant="outlined"
             className={classes.textfield}
-          />
-          <TextField
-            {...formik.getFieldProps("step3.training_AccreditionIndicator")}
-            key="step3.training_AccreditionIndicator"
-            label="Training Accredition Indicator"
+            fullWidth
+            title="Select the appropriate training credit type code from the drop-down menu, only if \'training credit\' is greater than zero."
+          >
+            <InputLabel htmlFor="step3.training_CreditTypeCode">
+              Training Credit Type Code
+            </InputLabel>
+            <Select
+              label="Training Credit Type Code"
+              {...formik.getFieldProps("step3.training_CreditTypeCode")}
+              inputProps={{
+                name: "step3.training_CreditTypeCode",
+                id: "step3.training_CreditTypeCode",
+              }}
+            >
+              <MenuItem value="null">
+                <em>None</em>
+              </MenuItem>
+              <MenuItem value={1}>1 - Semester Hours</MenuItem>
+              <MenuItem value={2}>2 - Quarter Hours</MenuItem>
+              <MenuItem value={3}>3 - Continuing Education Unit</MenuItem>
+              <MenuItem value={4}>4 - Professional Development Unit</MenuItem>
+              <MenuItem value={5}>
+                5 - Continuing Professional Education
+              </MenuItem>
+              <MenuItem value={6}>6 - Continuous Learning Points</MenuItem>
+              <MenuItem value={7}>7 - Other</MenuItem>
+            </Select>
+          </FormControl>
+          <FormControl
             variant="outlined"
             className={classes.textfield}
-          />
+            fullWidth
+            title="Select Yes in the drop-down menu if the vendor offering the course is recognized by an accrediting body (e.g. Department of Education). Select No if they are not."
+          >
+            <InputLabel htmlFor="step3.training_AccreditionIndicator">
+              Training Accredition Indicator
+            </InputLabel>
+            <Select
+              label="Training Accredition Indicator"
+              {...formik.getFieldProps("step3.training_AccreditionIndicator")}
+              inputProps={{
+                name: "step3.training_AccreditionIndicator",
+                id: "step3.training_AccreditionIndicator",
+              }}
+            >
+              <MenuItem value="null">
+                <em>None</em>
+              </MenuItem>
+              <MenuItem value={1}>1 - Yes</MenuItem>
+              <MenuItem value={0}>0 - No</MenuItem>
+            </Select>
+          </FormControl>
           <TextField
             {...formik.getFieldProps(
               "step3.continued_Service_Agreement_ExpirationDate"
@@ -762,27 +921,72 @@ export const RequestForm = () => {
             label="Continued Service Agreement Expiration Date"
             variant="outlined"
             className={classes.textfield}
+            InputProps={{
+              title:
+                "Enter the date on which the Continued Service Agreement expires. Enter date and time in the following format: 2023-04-23T18:25:43.511Z.",
+            }}
           />
-          <TextField
-            {...formik.getFieldProps("step3.training_Source_TypeCode")}
-            key="step3.training_Source_TypeCode"
-            label="Training Source Type Code"
+          <FormControl
             variant="outlined"
             className={classes.textfield}
-          />
-          <TextField
-            {...formik.getFieldProps("step3.individual_or_Group_Training")}
-            key="step3.individual_or_Group_Training"
-            label="Individual or Group Training"
+            fullWidth
+          >
+            <InputLabel htmlFor="step3.training_Source_TypeCode">
+              Training Source Type Code
+            </InputLabel>
+            <Select
+              label="Training Source Type Code"
+              {...formik.getFieldProps("step3.training_Source_TypeCode")}
+              inputProps={{
+                name: "step3.training_Source_TypeCode",
+                id: "step3.training_Source_TypeCode",
+              }}
+            >
+              <MenuItem value="null">
+                <em>None</em>
+              </MenuItem>
+              <MenuItem value={1}>1 - Government Internal</MenuItem>
+              <MenuItem value={2}>2 - Government External</MenuItem>
+              <MenuItem value={3}>3 - Non-government</MenuItem>
+              <MenuItem value={4}>4 - Government State/Local</MenuItem>
+              <MenuItem value={5}>
+                5 - Foreign Governments and Organizations
+              </MenuItem>
+            </Select>
+          </FormControl>
+          <FormControl
             variant="outlined"
             className={classes.textfield}
-          />
+            fullWidth
+          >
+            <InputLabel htmlFor="step3.individual_or_Group_Training">
+              Individual or Group Training
+            </InputLabel>
+            <Select
+              label="Individual or Group Training"
+              {...formik.getFieldProps("step3.individual_or_Group_Training")}
+              inputProps={{
+                name: "step3.individual_or_Group_Training",
+                id: "step3.individual_or_Group_Training",
+              }}
+            >
+              <MenuItem value="null">
+                <em>None</em>
+              </MenuItem>
+              <MenuItem value="Individual">Individual</MenuItem>
+              <MenuItem value="Group">Group</MenuItem>
+            </Select>
+          </FormControl>
           <TextField
             {...formik.getFieldProps("step3.student_Membership_ID")}
             key="step3.student_Membership_ID"
             label="Student Membership ID"
             variant="outlined"
             className={classes.textfield}
+            InputProps={{
+              title:
+                "If applicable, enter applicant’s Student ID/Membership ID assigned by the Training Vendor.",
+            }}
           />
           <TextField
             {...formik.getFieldProps("step3.skill_Learning_Objective")}
@@ -790,6 +994,10 @@ export const RequestForm = () => {
             label="Skill Learning Objective"
             variant="outlined"
             className={classes.textfield}
+            InputProps={{
+              title:
+                "Explain how the training event meets agency objective(s) and purpose type.",
+            }}
           />
         </>
       ),
@@ -888,13 +1096,8 @@ export const RequestForm = () => {
     <div className={classes.background}>
       <div className={classes.containerTitle}>
         <h1 className={classes.title}>
-          Training Request Form Based on the Authorization, Agreement, and
-          Certification of Training(SF-182)
+          Federal Employee Training Request Form (SF-182 Based)
         </h1>
-        <p className={classes.subtitle}>
-          Form used by the United States federal government to request training
-          and development for federal employees
-        </p>
       </div>
       <div className={classes.containerForm}>
         <form className={classes.form}>

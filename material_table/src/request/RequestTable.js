@@ -29,16 +29,20 @@ const useStyles = makeStyles((theme) => ({
   },
   tableBackground: {
     backgroundColor: "#4285F4", // Change this to the desired background color
-    width: "95%",
+    width: "89%",
     margin: "0 auto",
   },
   tabsColor: {
     backgroundColor: "#FFFFFF", // Change this to the desired background color
-    width: "95%",
+    width: "89%",
     margin: "0 auto",
   },
-  addButton: {
-    color: "#FFFFFF", // Change this to the desired background color
+  scrollbtnColor: {
+    backgroundColor: "#3f51b5 !important",
+    color: "#3f51b5",
+    "&:hover": {
+      backgroundColor: "#3f51b5 !important",
+    },
   },
 }));
 
@@ -251,8 +255,7 @@ export const RequestTable = () => {
           fontFamily: "Inter, sans-serif",
         }}
       >
-        Tables showing all requests and employees information stored in the
-        Postgresql database
+        Requests and Employees Information Stored in Postgresql Database Tables
       </h1>
       <Box>
         <Tabs
@@ -599,7 +602,7 @@ export const RequestTable = () => {
             <Button
               variant="contained"
               color="primary"
-              className={classes.addButton}
+              className={classes.scrollbtnColor}
               onClick={scrollToTop}
             >
               scrollToTop
