@@ -1,10 +1,14 @@
-Short Summary:
+Objective:
+
+The objective of this project was to create a streamlined full-stack application based on the Federal Employee Training Form (SF-182), which can be found at this link: (https://www.opm.gov/forms/pdf_fill/sf182.pdf). The front-end portion of the project was developed using React, while the back-end portion was built with the Entity Framework Code First Library in C# and PostgreSQL. The project emphasizes the creation of a form to gather trainee information and training course data, subsequently storing the collected data in a database.
+
+Front-end Short Summary:
 
 The code of several components and files that work together to create a web application for managing employee training requests (based on the SF-182 federal employee training request form). The main components include RequestForm, RequestTable, and EmployeeTable. RequestForm is a multi-step form that allows users to submit training requests. It uses Formik and Yup for form validation and handles form submission through an API call.
 RequestTable and EmployeeTable are tables that display the submitted training requests and employee information, respectively. They use React Table for table functionality and fetch data from an API endpoint.
 The code also includes various helper functions and styling files to customize the appearance and functionality of the web application.
 
-Detailed Summary:
+Front-end Detailed Summary:
 
 The Federal Employee Training Request Form is a web application built using React, Material React Table, Formik, Yup, and Material-UI. The application includes a multi-step form for submitting training requests, a table for displaying submitted requests, and a table for displaying employee information.
 The RequestForm component is a multi-step form that allows users to submit training requests. It uses Formik and Yup for form validation and handles form submission through an API call. The form is divided into several steps, each with its own set of fields. The user can navigate between steps using the "Next" and "Back" buttons. Once the user has completed all the steps, they can submit the form by clicking the "Submit" button.
@@ -13,6 +17,10 @@ The EmployeeTable component is a table that displays employee information. It us
 The API endpoint is a simple JavaScript object that stores the submitted training requests and employee information as arrays. The endpoint includes methods for Creating, Reading, Updating and Deleting (CRUD) data.
 The application also includes various helper functions and styling files to customize the appearance and functionality of the web application.
 Overall, the Employee Training Request Form is a comprehensive web application that allows users to submit training requests and manage employee information in an efficient and user-friendly manner.
+
+Back-end Summary:
+
+The code provides a web application for managing training requests through a RESTful API. The application uses ASP.NET Core for handling API requests, Entity Framework for interacting with the PostgreSQL database, and a well-structured data model to represent the training request entities.
 
 # Getting Started with Create React App
 
