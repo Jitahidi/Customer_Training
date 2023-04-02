@@ -99,6 +99,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+// Define the steps of the form
 const initialValues = {
   step1: {
     employeeId: null,
@@ -183,7 +184,7 @@ export const RequestForm = () => {
   const handleDialogClose = () => {
     setDialogOpen(false);
     window.scrollTo(0, 0);
-    //window.location.reload();
+    window.location.reload();
   };
 
   const formik = useFormik({
@@ -194,7 +195,7 @@ export const RequestForm = () => {
       if (activeStep === steps.length - 1) {
         handleCreateRequest(values);
         setDialogOpen(true);
-        //resetForm();
+        resetForm();
         setActiveStep(0);
       } else {
         // This ensures that when the form is submitted at step 3,
@@ -206,6 +207,7 @@ export const RequestForm = () => {
     },
   });
 
+  // Define the steps of the form
   const steps = [
     {
       label: "Step 1",
@@ -417,6 +419,7 @@ export const RequestForm = () => {
               title:
                 "Enter the applicant's position classification four-digit series (e.g., 0201).",
             }}
+            helperText={"Enter a four digit integer."}
           />
           <TextField
             {...formik.getFieldProps("step1.grade")}
@@ -427,6 +430,7 @@ export const RequestForm = () => {
             InputProps={{
               title: "Enter the applicant's grade level (1-15).",
             }}
+            helperText={"Enter an integer between 1 and 15."}
           />
           <TextField
             {...formik.getFieldProps("step1.step")}
@@ -437,6 +441,7 @@ export const RequestForm = () => {
             InputProps={{
               title: "The applicant must insert the appropriate step (1-10).",
             }}
+            helperText={"Enter an integer between 1 and 10."}
           />
         </>
       ),
@@ -672,8 +677,11 @@ export const RequestForm = () => {
             variant="outlined"
             className={classes.textfield}
             InputProps={{
-              title: "Enter date in this format: 2023-04-23T18:25:43.511Z",
+              title: "Enter date in this format: yyyy-mm-ddT00:00:00.000Z",
             }}
+            helperText={
+              "Enter date and time in this format: 2023-04-23T18:25:43.511Z"
+            }
           />
           <TextField
             {...formik.getFieldProps("step3.training_EndDate")}
@@ -682,8 +690,11 @@ export const RequestForm = () => {
             variant="outlined"
             className={classes.textfield}
             InputProps={{
-              title: "Enter date in this format: 2023-04-23T18:25:43.511Z",
+              title: "Enter date in this format: yyyy-mm-ddT00:00:00.000Z",
             }}
+            helperText={
+              "Enter date and time in this format: 2023-04-23T18:25:43.511Z"
+            }
           />
           <TextField
             {...formik.getFieldProps("step3.training_DutyHours")}
@@ -923,8 +934,11 @@ export const RequestForm = () => {
             className={classes.textfield}
             InputProps={{
               title:
-                "Enter the date on which the Continued Service Agreement expires. Enter date and time in the following format: 2023-04-23T18:25:43.511Z.",
+                "Enter the date on which the Continued Service Agreement expires. Enter date and time in the following format: yyyy-mm-ddT00:00:00.000Z.",
             }}
+            helperText={
+              "Enter date and time in this format: 2023-04-23T18:25:43.511Z"
+            }
           />
           <FormControl
             variant="outlined"
@@ -1004,6 +1018,7 @@ export const RequestForm = () => {
     },
   ];
 
+  // The stepFields object maps each step to an array of field names that are required for that step.
   const stepFields = {
     step1: ["employeeId"],
     step2: [],
@@ -1043,7 +1058,7 @@ export const RequestForm = () => {
     console.log(formik.values);
   }, [formik.values]);
 
-  // Function handles create request on the frontend and backend
+  // Function handles create requests
   const handleCreateRequest = async () => {
     // Run validation on the entire form
     await formik.validateForm();
@@ -1059,21 +1074,7 @@ export const RequestForm = () => {
           },
           body: JSON.stringify(formik.values.step1),
         });
-        const response2 = await fetch("http://localhost:5201/api/Courses/", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(formik.values.step3),
-        });
-        const response3 = await fetch("http://localhost:5201/api/Vendors/", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(formik.values.step3),
-        });
-        const response4 = await fetch("http://localhost:5201/api/Requests/", {
+        const response2 = await fetch("http://localhost:5201/api/Requests/", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -1081,7 +1082,7 @@ export const RequestForm = () => {
           body: JSON.stringify(formik.values.step3),
         });
 
-        if (!response1.ok && !response2.ok && !response3.ok && !response4.ok) {
+        if (!response1.ok && !response2.ok) {
           throw new Error("Failed to create request");
         }
       } catch (error) {

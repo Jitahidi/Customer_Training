@@ -5,8 +5,6 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import { Tab, Tabs } from "@mui/material";
 import { EmployeeTable } from "./EmployeeTable";
-import { CourseTable } from "./CourseTable";
-import { VendorTable } from "./VendorTable";
 import "typeface-inter";
 import {
   Box,
@@ -265,8 +263,6 @@ export const RequestTable = () => {
         >
           <Tab label="Request Table" />
           <Tab label="Employee Table" />
-          <Tab label="Course Table" />
-          <Tab label="Vendor Table" />
         </Tabs>
       </Box>
       {activeTab === 0 && (
@@ -613,16 +609,6 @@ export const RequestTable = () => {
       {activeTab === 1 && (
         <>
           <EmployeeTable />
-        </>
-      )}
-      {activeTab === 2 && (
-        <>
-          <CourseTable />
-        </>
-      )}
-      {activeTab === 3 && (
-        <>
-          <VendorTable />
         </>
       )}
     </div>
