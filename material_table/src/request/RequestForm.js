@@ -135,6 +135,7 @@ const initialValues = {
   },
   step3: {
     requestId: null,
+    employeeId: null,
     vendorId: null,
     vendor_Name: null,
     vendor_Mailing_Address: null,
@@ -166,12 +167,27 @@ const initialValues = {
 
 const validationSchema = Yup.object().shape({
   step1: Yup.object().shape({
-    employeeId: Yup.string().required("Employee ID is required"),
+    employeeId: Yup.string()
+      .max(7, "ID must be at most 7 characters")
+      .required("Employee ID is required"),
+    first_Name: Yup.string().required("First Name is required"),
+    last_Name: Yup.string().required("Last Name is required"),
+    work_Email_Address: Yup.string()
+      .email("Invalid email address")
+      .required("Work Email Address is required"),
   }),
   step3: Yup.object().shape({
-    requestId: Yup.string().required("Request ID is required"),
-    courseId: Yup.string().required("Course ID is required"),
-    vendorId: Yup.string().required("Vendor ID is required"),
+    requestId: Yup.string()
+      .max(7, "ID must be at most 7 characters")
+      .required("Request ID is required"),
+    courseId: Yup.string()
+      .max(7, "ID must be at most 7 characters")
+      .required("Course ID is required"),
+    vendorId: Yup.string()
+      .max(7, "ID must be at most 7 characters")
+      .required("Vendor ID is required"),
+    courseName: Yup.string().required("Course Name is required"),
+    vendor_Name: Yup.string().required("Vendor Name is required"),
   }),
 });
 
@@ -184,7 +200,7 @@ export const RequestForm = () => {
   const handleDialogClose = () => {
     setDialogOpen(false);
     window.scrollTo(0, 0);
-    window.location.reload();
+    //window.location.reload();
   };
 
   const formik = useFormik({
@@ -195,7 +211,7 @@ export const RequestForm = () => {
       if (activeStep === steps.length - 1) {
         handleCreateRequest(values);
         setDialogOpen(true);
-        resetForm();
+        //resetForm();
         setActiveStep(0);
       } else {
         // This ensures that when the form is submitted at step 3,
@@ -207,6 +223,9 @@ export const RequestForm = () => {
     },
   });
 
+  // EmployeeId state variable used to pass step1 employeeId to step3 employeeId
+  const [employeeId, setEmployeeId] = useState("");
+
   // Define the steps of the form
   const steps = [
     {
@@ -217,14 +236,14 @@ export const RequestForm = () => {
           <label className={classes.label}>Employee Information</label>
           <TextField
             {...formik.getFieldProps("step1.employeeId")}
+            onChange={(e) => {
+              formik.getFieldProps("step1.employeeId").onChange(e);
+              setEmployeeId(e.target.value);
+            }}
             key="step1.employeeId"
             label="Employee ID"
             variant="outlined"
             className={classes.textfield}
-            InputProps={{
-              title:
-                "Employee ID is the 9 digit number on your ID badge. If you do not know your Employee ID, please contact your HR representative.",
-            }}
             error={
               formik.touched.step1?.employeeId &&
               Boolean(formik.errors.step1?.employeeId)
@@ -251,6 +270,14 @@ export const RequestForm = () => {
             label="First Name"
             variant="outlined"
             className={classes.textfield}
+            error={
+              formik.touched.step1?.first_Name &&
+              Boolean(formik.errors.step1?.first_Name)
+            }
+            helperText={
+              formik.touched.step1?.first_Name &&
+              formik.errors.step1?.first_Name
+            }
           />
           <TextField
             {...formik.getFieldProps("step1.last_Name")}
@@ -258,6 +285,13 @@ export const RequestForm = () => {
             label="Last Name"
             variant="outlined"
             className={classes.textfield}
+            error={
+              formik.touched.step1?.last_Name &&
+              Boolean(formik.errors.step1?.last_Name)
+            }
+            helperText={
+              formik.touched.step1?.last_Name && formik.errors.step1?.last_Name
+            }
           />
           <TextField
             {...formik.getFieldProps("step1.middle_Initial")}
@@ -329,6 +363,14 @@ export const RequestForm = () => {
             label="Work Email Address"
             variant="outlined"
             className={classes.textfield}
+            error={
+              formik.touched.step1?.work_Email_Address &&
+              Boolean(formik.errors.step1?.work_Email_Address)
+            }
+            helperText={
+              formik.touched.step1?.work_Email_Address &&
+              formik.errors.step1?.work_Email_Address
+            }
           />
           <TextField
             {...formik.getFieldProps("step1.position_Title")}
@@ -477,6 +519,14 @@ export const RequestForm = () => {
             label="Course Name"
             variant="outlined"
             className={classes.textfield}
+            error={
+              formik.touched.step3?.courseName &&
+              Boolean(formik.errors.step3?.courseName)
+            }
+            helperText={
+              formik.touched.step3?.courseName &&
+              formik.errors.step3?.courseName
+            }
             InputProps={{
               title:
                 "The title of the course or the program that the applicant is scheduled to complete.",
@@ -506,6 +556,14 @@ export const RequestForm = () => {
             label="Vendor Name"
             variant="outlined"
             className={classes.textfield}
+            error={
+              formik.touched.step3?.vendor_Name &&
+              Boolean(formik.errors.step3?.vendor_Name)
+            }
+            helperText={
+              formik.touched.step3?.vendor_Name &&
+              formik.errors.step3?.vendor_Name
+            }
           />
           <TextField
             {...formik.getFieldProps("step3.vendor_Mailing_Address")}
@@ -577,6 +635,14 @@ export const RequestForm = () => {
             }}
           />
           <TextField
+            value={employeeId}
+            key="step3.employeeId"
+            label="Employee ID"
+            variant="outlined"
+            className={classes.textfield}
+            disabled
+          />
+          <TextField
             {...formik.getFieldProps("step3.courseId")}
             key="step3.courseId"
             label="Course ID"
@@ -599,6 +665,14 @@ export const RequestForm = () => {
             label="Course Name"
             variant="outlined"
             className={classes.textfield}
+            error={
+              formik.touched.step3?.courseName &&
+              Boolean(formik.errors.step3?.courseName)
+            }
+            helperText={
+              formik.touched.step3?.courseName &&
+              formik.errors.step3?.courseName
+            }
             InputProps={{
               title:
                 "The title of the course or the program that the applicant is scheduled to complete.",
@@ -627,6 +701,14 @@ export const RequestForm = () => {
             label="Vendor Name"
             variant="outlined"
             className={classes.textfield}
+            error={
+              formik.touched.step3?.vendor_Name &&
+              Boolean(formik.errors.step3?.vendor_Name)
+            }
+            helperText={
+              formik.touched.step3?.vendor_Name &&
+              formik.errors.step3?.vendor_Name
+            }
           />
           <TextField
             {...formik.getFieldProps("step3.vendor_Mailing_Address")}
@@ -1018,38 +1100,12 @@ export const RequestForm = () => {
     },
   ];
 
-  // The stepFields object maps each step to an array of field names that are required for that step.
-  const stepFields = {
-    step1: ["employeeId"],
-    step2: [],
-    step3: ["requestId", "courseId", "vendorId"],
-  };
-
-  // The handleNext function ensures that the form only proceeds to the next step
-  // if all fields in the current step pass validation. It also handles steps that
-  // don't have any fields by simply moving to the next step.
+  // Function handles next button
   const handleNext = async () => {
-    const currentStepName = `step${activeStep + 1}`;
-    const fieldNames = stepFields[currentStepName];
-
-    if (fieldNames.length > 0) {
-      // Run validation for each field in the current step
-      const validationPromises = fieldNames.map((fieldName) =>
-        formik.validateField(`${currentStepName}.${fieldName}`)
-      );
-
-      try {
-        await Promise.all(validationPromises);
-        setActiveStep((prevActiveStep) => prevActiveStep + 1);
-      } catch (error) {
-        // Do nothing, Formik will handle displaying the errors
-      }
-    } else {
-      // Proceed to the next step if there are no fields in the current step
-      setActiveStep((prevActiveStep) => prevActiveStep + 1);
-    }
+    // Proceed to the next step
+    setActiveStep((prevActiveStep) => prevActiveStep + 1);
   };
-
+  // Function handles back button
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
@@ -1067,20 +1123,29 @@ export const RequestForm = () => {
     if (Object.keys(formik.errors).length === 0) {
       try {
         // Send a POST request to the backend API to create a new row in the database
-        const response1 = await fetch("http://localhost:5201/api/Employees/", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(formik.values.step1),
-        });
-        const response2 = await fetch("http://localhost:5201/api/Requests/", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(formik.values.step3),
-        });
+        const response1 = await fetch(
+          "https://training-form.herokuapp.com/api/Employees/",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(formik.values.step1),
+          }
+        );
+        const response2 = await fetch(
+          "https://training-form.herokuapp.com/api/Requests/",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              ...formik.values.step3,
+              employeeId: employeeId,
+            }),
+          }
+        );
 
         if (!response1.ok && !response2.ok) {
           throw new Error("Failed to create request");

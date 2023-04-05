@@ -126,7 +126,7 @@ export const EmployeeTable = () => {
 
   // Retrieve data from the backend API to display data in the request table
   useEffect(() => {
-    fetch("http://localhost:5201/api/Employees/")
+    fetch("https://training-form.herokuapp.com/api/Employees/")
       .then((resp) => resp.json())
       .then((data) => setData(data))
       .catch((error) => console.log(error));
@@ -144,7 +144,7 @@ export const EmployeeTable = () => {
     try {
       // Send a DELETE request to the backend API to delete the row with the given ID
       const response = await fetch(
-        `http://localhost:5201/api/Employees/${rowToDelete.original.employeeId}`,
+        `https://training-form.herokuapp.com/api/Employees/${rowToDelete.original.employeeId}`,
         {
           method: "DELETE",
         }
@@ -179,7 +179,7 @@ export const EmployeeTable = () => {
   const handleUpdateRequest = async () => {
     try {
       const response = await fetch(
-        `http://localhost:5201/api/Employees/${editRow.original.employeeId}`,
+        `https://training-form.herokuapp.com/api/Employees/${editRow.original.employeeId}`,
         {
           method: "PUT",
           headers: {
