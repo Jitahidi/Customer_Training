@@ -69,6 +69,7 @@ export const RequestTable = () => {
       },
 
       { Header: "Request ID", accessorKey: "requestId" },
+      { Header: "Employee ID", accessorKey: "employeeId" },
       { Header: "Vendor ID", accessorKey: "vendorId" },
       { Header: "Vendor Name", accessorKey: "vendor_Name" },
       {
@@ -147,7 +148,7 @@ export const RequestTable = () => {
 
   // Retrieve data from the backend API to display data in the request table
   useEffect(() => {
-    fetch("http://localhost:5201/api/Requests/")
+    fetch("https://training-form.herokuapp.com/api/Requests/")
       .then((resp) => resp.json())
       .then((data) => setData(data))
       .catch((error) => console.log(error));
@@ -165,7 +166,7 @@ export const RequestTable = () => {
     try {
       // Send a DELETE request to the backend API to delete the row with the given ID
       const response = await fetch(
-        `http://localhost:5201/api/Requests/${rowToDelete.original.requestId}`,
+        `https://training-form.herokuapp.com/api/Requests/${rowToDelete.original.requestId}`,
         {
           method: "DELETE",
         }
@@ -201,7 +202,7 @@ export const RequestTable = () => {
   const handleUpdateRequest = async () => {
     try {
       const response = await fetch(
-        `http://localhost:5201/api/Requests/${editRow.original.requestId}`,
+        `https://training-form.herokuapp.com/api/Requests/${editRow.original.requestId}`,
         {
           method: "PUT",
           headers: {
