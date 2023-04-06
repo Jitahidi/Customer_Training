@@ -20,12 +20,12 @@ import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
   tableBackground: {
-    backgroundColor: "#4285F4", // Change this to the desired background color
+    backgroundColor: "#4285F4", // Change this to the desired background color.
     width: "89%",
     margin: "0 auto",
   },
   tabsColor: {
-    backgroundColor: "#FFFFFF", // Change this to the desired background color
+    backgroundColor: "#FFFFFF", // Change this to the desired background color.
     width: "89%",
     margin: "0 auto",
   },
