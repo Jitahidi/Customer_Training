@@ -200,7 +200,7 @@ export const RequestForm = () => {
   const handleDialogClose = () => {
     setDialogOpen(false);
     window.scrollTo(0, 0);
-    //window.location.reload();
+    window.location.reload();
   };
 
   const formik = useFormik({
@@ -211,7 +211,7 @@ export const RequestForm = () => {
       if (activeStep === steps.length - 1) {
         handleCreateRequest(values);
         setDialogOpen(true);
-        //resetForm();
+        resetForm();
         setActiveStep(0);
       } else {
         // This ensures that when the form is submitted at step 3,
