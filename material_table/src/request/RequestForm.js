@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
     padding: "32px",
     boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
     [theme.breakpoints.up("xs")]: {
-      width: "300%",
+      width: "250%",
     },
   },
   containerTitle: {
@@ -37,11 +37,12 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    width: "300px", // set a fixed pixel width for the stepper
+    width: "100%", // change from fixed width to percentage-based width
+    maxWidth: "300px", // set a fixed pixel width for the stepper
   },
   stepper: {
     padding: theme.spacing(3, 0),
-    width: "105%", // set a fixed pixel width for the stepper
+    width: "100%", // set a fixed pixel width for the stepper
     backgroundColor: "#FFFFFF",
   },
   button: {
@@ -61,7 +62,8 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
   },
   textfield: {
-    width: "50%",
+    width: "100%",
+    maxWidth: "500px", // set a maximum width for larger screens
     padding: "10px",
     marginBottom: "16px", // Add some space between the text fields
     textAlign: "left",
