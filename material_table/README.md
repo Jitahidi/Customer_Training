@@ -10,11 +10,11 @@ The objective of this project was to create a streamlined full-stack application
 
 The code provided is a web application for a Federal Employee Training Request Form built using React, Material React Table, Formik, Yup, and Material-UI. The application includes a multi-step form for submitting training requests, a table for displaying submitted requests, and a table for displaying employee information.
 
-The 'RequestForm' component is a multi-step form that allows users to submit training requests. It uses Formik and Yup for form validation and handles form submission through an API call. The form is divided into several steps, each with its own set of fields. The user can navigate between steps using the "Next" and "Back" buttons. Once the user has completed all the steps, they can submit the form by clicking the "Submit" button.
+The `RequestForm` component is a multi-step form that allows users to submit training requests. It uses Formik and Yup for form validation and handles form submission through an API call. The form is divided into several steps, each with its own set of fields. The user can navigate between steps using the "Next" and "Back" buttons. Once the user has completed all the steps, they can submit the form by clicking the "Submit" button.
 
-The 'RequestTable' component is a table that displays the submitted training requests. It uses Material React Table for table functionality and fetches data from an API endpoint. The table includes sorting and filtering functionality, as well as edit and delete functionality for each row.
+The `RequestTable` component is a table that displays the submitted training requests. It uses Material React Table for table functionality and fetches data from an API endpoint. The table includes sorting and filtering functionality, as well as edit and delete functionality for each row.
 
-The 'EmployeeTable' component is a table that displays employee information. It uses Material React Table for table functionality and fetches data from an API endpoint. The table includes sorting and filtering functionality, as well as edit and delete functionality for each row.
+The `EmployeeTable` component is a table that displays employee information. It uses Material React Table for table functionality and fetches data from an API endpoint. The table includes sorting and filtering functionality, as well as edit and delete functionality for each row.
 
 The API endpoint is a simple JavaScript object that stores the submitted training requests and employee information as arrays. The endpoint provide actions for creating, retrieving, updating, and deleting records.
 The application also includes various helper functions and styling files to customize the appearance and functionality of the web application.
