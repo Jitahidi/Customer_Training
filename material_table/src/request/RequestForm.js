@@ -246,6 +246,10 @@ export const RequestForm = () => {
             label="Employee ID"
             variant="outlined"
             className={classes.textfield}
+            InputProps={{
+              title:
+                "Employee ID is the 9 digit number on your ID badge. If you do not know your Employee ID, please contact your HR representative.",
+            }}
             error={
               formik.touched.step1?.employeeId &&
               Boolean(formik.errors.step1?.employeeId)
@@ -643,6 +647,10 @@ export const RequestForm = () => {
             variant="outlined"
             className={classes.textfield}
             disabled
+            InputProps={{
+              title:
+                "Employee ID is the 9 digit number on your ID badge. If you do not know your Employee ID, please contact your HR representative.",
+            }}
           />
           <TextField
             {...formik.getFieldProps("step3.courseId")}
