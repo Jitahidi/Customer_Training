@@ -166,27 +166,54 @@ const initialValues = {
     skill_Learning_Objective: null,
   },
 };
-
+// Validation schema for the form
 const validationSchema = Yup.object().shape({
   step1: Yup.object().shape({
     employeeId: Yup.string()
-      .max(7, "ID must be at most 7 characters")
+      .matches(/^\d{1,9}$/, "ID must be a number with at most 9 characters")
       .required("Employee ID is required"),
     first_Name: Yup.string().required("First Name is required"),
     last_Name: Yup.string().required("Last Name is required"),
     work_Email_Address: Yup.string()
       .email("Invalid email address")
       .required("Work Email Address is required"),
+    series: Yup.string()
+      .matches(/^\d{4}$/, "Series must be a 4-digit number")
+      .required("Series is required"),
+
+    grade: Yup.string()
+      .matches(/^\d{1,2}$/, "Grade must be a number with at most 2 digits")
+      .test("greaterThanZero", "Grade must be greater than 0", (value) => {
+        const intValue = parseInt(value);
+        return !isNaN(intValue) && intValue > 0;
+      })
+      .test("maxValue", "Grade must be at most 15", (value) => {
+        const intValue = parseInt(value);
+        return !isNaN(intValue) && intValue <= 15;
+      })
+      .required("Grade is required"),
+
+    step: Yup.string()
+      .matches(/^\d{1,2}$/, "Step must be a number with at most 2 digits")
+      .test("greaterThanZero", "Step must be greater than 0", (value) => {
+        const intValue = parseInt(value);
+        return !isNaN(intValue) && intValue > 0;
+      })
+      .test("maxValue", "Step must be at most 10", (value) => {
+        const intValue = parseInt(value);
+        return !isNaN(intValue) && intValue <= 10;
+      })
+      .required("Step is required"),
   }),
   step3: Yup.object().shape({
     requestId: Yup.string()
-      .max(7, "ID must be at most 7 characters")
+      .matches(/^\d{1,9}$/, "ID must be a number with at most 9 characters")
       .required("Request ID is required"),
     courseId: Yup.string()
-      .max(7, "ID must be at most 7 characters")
+      .matches(/^\d{1,9}$/, "ID must be a number with at most 9 characters")
       .required("Course ID is required"),
     vendorId: Yup.string()
-      .max(7, "ID must be at most 7 characters")
+      .matches(/^\d{1,9}$/, "ID must be a number with at most 9 characters")
       .required("Vendor ID is required"),
     courseName: Yup.string().required("Course Name is required"),
     vendor_Name: Yup.string().required("Vendor Name is required"),
@@ -467,7 +494,13 @@ export const RequestForm = () => {
               title:
                 "Enter the applicant's position classification four-digit series (e.g., 0201).",
             }}
-            helperText={"Enter a four digit integer."}
+            error={
+              formik.touched.step1?.series &&
+              Boolean(formik.errors.step1?.series)
+            }
+            helperText={
+              formik.touched.step1?.series && formik.errors.step1?.series
+            }
           />
           <TextField
             {...formik.getFieldProps("step1.grade")}
@@ -478,7 +511,12 @@ export const RequestForm = () => {
             InputProps={{
               title: "Enter the applicant's grade level (1-15).",
             }}
-            helperText={"Enter an integer between 1 and 15."}
+            error={
+              formik.touched.step1?.grade && Boolean(formik.errors.step1?.grade)
+            }
+            helperText={
+              formik.touched.step1?.grade && formik.errors.step1?.grade
+            }
           />
           <TextField
             {...formik.getFieldProps("step1.step")}
@@ -489,7 +527,10 @@ export const RequestForm = () => {
             InputProps={{
               title: "The applicant must insert the appropriate step (1-10).",
             }}
-            helperText={"Enter an integer between 1 and 10."}
+            error={
+              formik.touched.step1?.step && Boolean(formik.errors.step1?.step)
+            }
+            helperText={formik.touched.step1?.step && formik.errors.step1?.step}
           />
         </>
       ),
